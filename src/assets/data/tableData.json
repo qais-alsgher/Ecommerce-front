@@ -1,0 +1,5 @@
+{
+  "cart": ["Product", "Price", "Quantity", "Total",""],
+  "order": ["Product", "Price", "size", "Color", "Quantity", "Total"],
+  "wishlist": ["Product", "Price", "size","","" ]
+}

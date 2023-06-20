@@ -27,7 +27,16 @@ export default function Templet({ children }) {
   const { colorMode } = useColorMode();
   return (
     <Flex minH={`calc(100vh - 60px)`} direction={{ base: "column", md: "row" }}>
-      <Box flexBasis={{ base: "100%", md: "50%" }}>{children}</Box>
+      <Flex
+        flexBasis={{ base: "100%", md: "50%" }}
+        justify={"center"}
+        alignItems={"center"}
+        mt={{ base: "10", md: "0" }}
+        mb={{ base: "10", md: "0" }}
+      >
+        {children}
+      </Flex>
+
       <Flex
         // display={{ base: "none", md: "block" }}
         // flexBasis={{ md: "50%" }}
@@ -53,13 +62,14 @@ export default function Templet({ children }) {
           height: "100%",
         }}
       >
-        <VStack zIndex={2} textAlign={"center"} gap={5}>
+        <VStack zIndex={2} textAlign={"center"} gap={5} margin={10}>
           <Box fontSize={{ base: "3xl", md: "4xl" }} fontWeight="bold">
             Wlecme to Esports Website
           </Box>
-          <Box fontSize={"xl"} maxW={"lg"}>
-            Her you can find all the ALL Thengs Related to sports in lower price
-            and best quality
+          <Box fontSize={"xl"} maxW={"lg"} lineHeight={"1.5"}>
+            Unleash your passion. Fuel your game. Together, we conquer the
+            field. Welcome to a world where athletes unite, and where dreams
+            take flight. Step into greatness and let your journey begin
           </Box>
         </VStack>
       </Flex>
