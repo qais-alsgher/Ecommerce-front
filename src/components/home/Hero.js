@@ -9,7 +9,7 @@ import {
   Box,
   createIcon,
 } from "@chakra-ui/react";
-import background from "../../assets/background3.jpg";
+import background from "../../assets/images/background3.jpg";
 
 export default function WithBackgroundImage() {
   return (

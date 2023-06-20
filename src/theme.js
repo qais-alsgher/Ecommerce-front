@@ -38,20 +38,40 @@ const theme = extendTheme({
   components: {
     Button: {
       baseStyle: {
-        rounded: "full",
         px: 6,
-        transition: "0.3s",
+        transition: "0.4s",
       },
       variants: {
+        submitBtn: (props) => ({
+          width: "100%",
+          fontWeight: "bold",
+          fontSize: "20px",
+          bg: "linear-gradient(180deg, #395B64 0%, #00B4DB 100%)",
+          borderRadius: "0px",
+          textAlign: "center",
+          // marginRight: "50px",
+          p: "10px 15px",
+          color: props.colorMode === "dark" ? "white" : "darkBlue.500",
+          border: "1px solid",
+          borderColor:
+            props.colorMode === "dark" ? "darkBlue.100" : "lightBlue.500",
+          _hover: {
+            bg:
+              props.colorMode === "dark"
+                ? "linear-gradient(180deg, #00B4DB 0%,  #2E4A51 100%)"
+                : "linear-gradient(180deg, #00B4DB 0%, #5DC9B2 100%)",
+          },
+        }),
         solid: (props) => ({
+          rounded: "full",
           bg: props.colorMode === "dark" ? "darkBlue.100" : "lightBlue.500",
           color: props.colorMode === "dark" ? "white" : "darkBlue.500",
           _hover: {
             bg: props.colorMode === "dark" ? "darkBlue.200" : "lightBlue.300",
           },
         }),
-
         outline: (props) => ({
+          rounded: "full",
           bg: "transparent",
           color: props.colorMode === "dark" ? "white" : "darkBlue.500",
           border: "1px solid",
