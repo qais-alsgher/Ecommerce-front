@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../../store/features/authSlicer";
 import { addToCart } from "../../../store/actions/cartAction";
 import { addToWishList } from "../../../store/actions/wishListAction";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Card({ item }) {
   const dispatch = useDispatch();

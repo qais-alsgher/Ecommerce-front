@@ -2,10 +2,6 @@ import React from "react";
 import {
   Box,
   Flex,
-  Center,
-  Avatar,
-  Image,
-  HStack,
   VStack,
   useColorMode,
 } from "@chakra-ui/react";

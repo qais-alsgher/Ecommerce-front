@@ -38,8 +38,6 @@ export default function UserImgInput() {
         name="image"
         hidden
         accept="image/png, image/jpeg"
-        //   onChange={(e) => validateImage(e, dispatch, toast)}
-
         onChange={(e) => {
           validateImage(dispatch, e, toast);
         }}

@@ -14,7 +14,6 @@ export const getCartItems = (dispatch, userId) => {
   dispatch(cartRequest());
   try {
     axois.get(`${process.env.REACT_APP_URL_KEY}/cart/${userId}`).then((res) => {
-      console.log(res.data);
       dispatch(getUserCartSuccess(res.data));
     });
   } catch (error) {
@@ -37,7 +36,6 @@ export const getOrders = (dispatch, userId) => {
 
 export const addToCart = (dispatch, payload, toast) => {
   dispatch(cartRequest());
-  console.log(payload);
   try {
     axois.post(`${process.env.REACT_APP_URL_KEY}/cart`, payload).then((res) => {
       dispatch(addToCartSuccess(res.data));
@@ -94,7 +92,6 @@ export const addQuintityToCart = (dispatch, payload) => {
 
 export const checkoutCart = (dispatch, payload, toast) => {
   try {
-    console.log(payload);
     localStorage.setItem("quentity", JSON.stringify(payload.quintity));
     const lineItems = {
       carts: [],
@@ -107,7 +104,6 @@ export const checkoutCart = (dispatch, payload, toast) => {
           : item.quantity,
       });
     });
-    console.log(lineItems);
     axios
       .post(`${process.env.REACT_APP_URL_KEY}/checkout`, lineItems)
       .then((res) => {
@@ -130,12 +126,10 @@ export const checkoutCart = (dispatch, payload, toast) => {
 
 export const payedSuccess = (dispatch, payload) => {
   try {
-    console.log(payload);
     axios
       .get(`${process.env.REACT_APP_URL_KEY}/cart/${payload.userId}`)
       .then((res) => {
         res.data?.forEach((item) => {
-          console.log(item.id);
           axios.put(`${process.env.REACT_APP_URL_KEY}/cart/${item.id}`, {
             status: "paid",
             quantity: payload.quintity[item.id] ? payload.quintity[item.id] : 1,
@@ -144,7 +138,6 @@ export const payedSuccess = (dispatch, payload) => {
       });
     localStorage.removeItem("quentity");
   } catch (error) {
-    console.log(error);
     dispatch(cartFail(error.message));
   }
 };

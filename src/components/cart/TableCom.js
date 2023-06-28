@@ -1,12 +1,7 @@
 import React from "react";
 import {
   Table,
-  Tbody,
-  Th,
-  Thead,
-  Tr,
   Box,
-  Td,
   Heading,
 } from "@chakra-ui/react";
 import TableHead from "./TableHead";

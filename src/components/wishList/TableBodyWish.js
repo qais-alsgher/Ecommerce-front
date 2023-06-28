@@ -1,20 +1,10 @@
 import React from "react";
-import {
-  Tbody,
-  Tr,
-  Box,
-  Td,
-  Image,
-  NumberInput,
-  NumberInputField,
-  Button,
-  useToast,
-} from "@chakra-ui/react";
-import Procect from "../cart/Procect";
+import { Tbody, Tr, Td, Button, useToast } from "@chakra-ui/react";
+import Procect from "../cart/Product";
 import DleteBtn from "../cart/DleteBtn";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, deleteCartItem } from "../../store/actions/cartAction";
+import { addToCart } from "../../store/actions/cartAction";
 import { deleteWishListItem } from "../../store/actions/wishListAction";
 import { selectUser } from "../../store/features/authSlicer";
 
@@ -27,11 +17,10 @@ function TableBodyWish({ data }) {
     <Tbody>
       {data.map((item) => (
         <Tr key={item.id}>
-          {console.log(item.Item?.size)}
           <Procect
             image={item.Item?.image[0]}
             title={item.Item?.title}
-            id={item.id}
+            id={item.Item?.id}
           />
           <Td>$ {item.Item?.price}</Td>
           <Td>{item.Item?.size?.map((size) => size + " / ")}</Td>
@@ -50,12 +39,10 @@ function TableBodyWish({ data }) {
                     quantity: 1,
                     color: item.Item.color[0],
                     size: item.size[0],
-                    // size: item.Item.size
                   },
                   toast
                 );
                 deleteWishListItem(dispatch, item.id, toast);
-                console.log(item.Item);
               }}
             >
               Add to cart

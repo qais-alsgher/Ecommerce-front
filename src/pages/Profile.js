@@ -1,16 +1,20 @@
 import React from "react";
-import Sidebar from "../components/profile/Sidebar";
+import Sidebar from "../components/sidebar/Sidebar";
 import Cart from "./Cart";
 import WishList from "./WishList";
 import Order from "./Order";
-import { Flex } from "@chakra-ui/react";
+import { Flex, Box } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import Settinges from "./Settinges";
+import {
+  AiOutlineShoppingCart,
+  AiFillHeart,
+  AiFillSetting,
+} from "react-icons/ai";
+import { RiBillFill } from "react-icons/ri";
 
 function Profile() {
   const { tab } = useParams();
-  console.log(tab);
-  //   tab is undefined here because the route path="/profile/:tab" element={<Profile />} is not defined in src/App.js
   const renderTab = () => {
     switch (tab) {
       case "Cart":
@@ -22,9 +26,16 @@ function Profile() {
       case "Settings":
         return <Settinges />;
       default:
-        return <Cart />;
+        return <Settinges />;
     }
   };
+  const LinkItems = [
+    { name: "Settings", icon: AiFillSetting },
+    { name: "Orders", icon: RiBillFill },
+    { name: "Cart", icon: AiOutlineShoppingCart },
+    { name: "Wish-list", icon: AiFillHeart },
+  ];
+  const urlRouter = "profile";
   return (
     <Flex
       gap={5}
@@ -32,9 +43,10 @@ function Profile() {
       w={"full"}
       overflow={"auto"}
     >
-      <Sidebar />
-
-      {renderTab()}
+      <Sidebar urlRouter={urlRouter} navLinks={LinkItems} />
+      <Box w={"full"} h={"90vh"}>
+        {renderTab()}
+      </Box>
     </Flex>
   );
 }

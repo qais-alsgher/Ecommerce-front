@@ -1,4 +1,4 @@
-import { React, useCallback, useEffect, useState } from "react";
+import { React, useEffect } from "react";
 import FilterSlider from "../components/items/filterItems/FilterSlider";
 import { useDispatch } from "react-redux";
 import { getItems } from "../store/actions/itemAction";
@@ -15,7 +15,7 @@ function Items() {
     } else {
       getItems(dispatch, { price: 1000, page: 1 });
     }
-  }, [dispatch]);
+  }, [dispatch, category]);
 
   return (
     <>

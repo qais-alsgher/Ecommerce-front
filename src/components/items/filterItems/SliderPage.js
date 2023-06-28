@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Button, Text } from "@chakra-ui/react";
+import { Flex, Button } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { getItems } from "../../../store/actions/itemAction";
 import {
@@ -27,7 +27,6 @@ function SliderPage() {
   };
 
   return (
-    // that slider for number of pages and tow row for next page and previous page
     <Flex align="center" justify="center" py={10}>
       <Button
         d="flex"

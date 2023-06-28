@@ -1,15 +1,10 @@
 import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
-import { selectItems } from "../../store/features/itemSlicer";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Card from "../items/cardItem/Card";
 
 function TopSellingCarousel({ items }) {
-  const item = useSelector(selectItems);
-  console.log(item);
-
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -33,7 +28,6 @@ function TopSellingCarousel({ items }) {
       justifyContent="center"
       alignItems="center"
       flexDirection="column"
-      // pt={10}
       pb={10}
     >
       <Box width="100%" maxWidth="1200px">

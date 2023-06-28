@@ -2,11 +2,12 @@ import React from "react";
 import { Flex, Icon, useColorMode } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-function NaveItem({ icon, children, ...rest }) {
+function NaveItem({ icon, children, urlRouter, ...rest }) {
   const { colorMode } = useColorMode();
+
   return (
     <Link
-      to={`/profile/${children}`}
+      to={`/${urlRouter}/${children}`}
       style={{ textDecoration: "none" }}
       _focus={{ boxShadow: "none" }}
     >

@@ -15,7 +15,7 @@ import {
 import MenuUser from "../home/MenuUser";
 import { logout } from "../../store/actions/authAction";
 import LogoW from "../../assets/logo/logoWhite.png";
-import LogoB from "../../assets/logo/logoBlack.svg";
+import LogoB from "../../assets/logo/logoBlack.png";
 import NavIcon from "../home/NavIcon";
 import NavLink from "./NavLink";
 import {
@@ -30,7 +30,6 @@ import {
   MenuList,
   MenuItem,
   useDisclosure,
-  useColorModeValue,
   Stack,
   Container,
   useColorMode,
@@ -72,9 +71,9 @@ export default function Header() {
                   <Image
                     src={colorMode === "light" ? LogoB : LogoW}
                     alt={"logo"}
-                    width={"180px"}
-                    height={"180px"}
-                    color={"white"}
+                    width={"100px"}
+                    height={"50px"}
+                    mr={4}
                   />
                 </Link>
               </Box>
@@ -82,7 +81,7 @@ export default function Header() {
                 as={"nav"}
                 spacing={4}
                 display={{ base: "none", md: "flex" }}
-                zIndex={100}
+                // zIndex={100}
               >
                 {Links.map((link) => (
                   <NavLink key={link}>{link}</NavLink>
@@ -138,7 +137,7 @@ export default function Header() {
                           Profile
                         </MenuUser>
                       </Link>
-                      {userData?.role === "admin" && (
+                      {userData?.role === "Admin" && (
                         <Link to={"/admin"}>
                           <MenuUser>
                             <AiFillDashboard />

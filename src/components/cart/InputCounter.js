@@ -15,12 +15,6 @@ function InputCounter({ quantity, handleClick }) {
       defaultValue={quantity}
       min={1}
       onChange={(value) => handleClick(value)}
-      // onChange={(value) =>
-      //   addQuintityToCart(dispatch, {
-      //     id: item.id,
-      //     value,
-      //   })
-      // }
     >
       <NumberInputField rounded={"lg"} />
       <NumberInputStepper>

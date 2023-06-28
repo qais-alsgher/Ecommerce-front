@@ -9,6 +9,8 @@ function NoProducts({ children, text }) {
       align={"center"}
       gap={5}
       transform={"translateY(50%)"}
+      w={"100%"}
+      maxH={"500px"}
     >
       <Box fontSize={["4xl", "5xl", "9xl"]}>{children}</Box>
       <Text fontSize={{ base: "1rem", md: "1.5rem" }} fontWeight="bold">

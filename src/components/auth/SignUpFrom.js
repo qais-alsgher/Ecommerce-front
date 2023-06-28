@@ -4,35 +4,17 @@ import SubmitBtn from "./SubmitBtn";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import UserImgInput from "./UserImgInput";
-import { signup, uploadImage } from "../../store/actions/authAction";
+import { signup } from "../../store/actions/authAction";
 import { selectStep } from "../../store/features/authSlicer";
 import Progress from "./Progress";
 import {
-  Box,
-  Flex,
-  Center,
-  Avatar,
-  Image,
-  HStack,
   Input,
   VStack,
-  Button,
-  useColorMode,
-  Toast,
-  Checkbox,
   useToast,
-  AvatarBadge,
-  InputGroup,
-  InputRightElement,
-  IconButton,
   useSteps,
   Select,
-  Stack,
-  InputLeftAddon,
   FormLabel,
   FormControl,
-  Alert,
-  AlertIcon,
 } from "@chakra-ui/react";
 
 export default function SignUpFrom() {

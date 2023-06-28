@@ -19,7 +19,6 @@ import { MdFingerprint } from "react-icons/md";
 import BoxCard from "../components/about/BoxCard";
 
 const AboutUs = () => {
-  const { colorMode } = useColorMode();
   return (
     <>
       <Box>
@@ -72,7 +71,6 @@ const AboutUs = () => {
           >
             <Center>
               <Grid
-                // if small screen, 1 column, if medium screen, 2 columns, if large screen, 3 columns
                 templateColumns={{
                   base: "repeat(1, 1fr)",
                   md: "repeat(2, 1fr)",
@@ -126,7 +124,6 @@ const AboutUs = () => {
       </Box>
 
       <Spacer h={{ md: "10", lg: "400" }} />
-      {/* section toke about deverper that build the porject  */}
       <Container maxW="container.2xl">
         <Flex
           direction="column"

@@ -2,11 +2,10 @@ import React from "react";
 import { useColorMode, Radio } from "@chakra-ui/react";
 
 function NavItem({ children, ...rest }) {
-  const { colorMode } = useColorMode();
   return (
     <Radio
       px="6"
-      py="3"
+      py="2"
       w={"full"}
       size="md"
       colorScheme="teal"
