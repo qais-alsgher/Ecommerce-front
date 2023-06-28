@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import MobileNav from "./MobileNav";
 import FilterSliderContent from "./FilterSliderContent";
-import {
-  Box,
-  Drawer,
-  DrawerContent,
-  VStack,
-  useColorMode,
-} from "@chakra-ui/react";
+import { Box, Drawer, DrawerContent, VStack } from "@chakra-ui/react";
 import SliderPage from "./SliderPage";
 
 export default function FilterSlider({ children }) {

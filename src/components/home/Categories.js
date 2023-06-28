@@ -1,5 +1,5 @@
 import React from "react";
-import { SimpleGrid, Grid, Box, Text, Flex } from "@chakra-ui/react";
+import { Grid, Box, Text, Flex } from "@chakra-ui/react";
 import filterData from "../../assets/data/filterData.json";
 import { Link } from "react-router-dom";
 function Categories() {

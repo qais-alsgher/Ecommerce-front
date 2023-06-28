@@ -1,15 +1,6 @@
 import React from "react";
 import {
-  Flex,
-  Circle,
   Box,
-  Image,
-  Badge,
-  useColorModeValue,
-  Icon,
-  Tooltip,
-  GridItem,
-  VStack,
   HStack,
 } from "@chakra-ui/react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";

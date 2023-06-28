@@ -13,8 +13,7 @@ const initialState = {
   isAuthenticated: token ? true : false,
   isLoading: false,
   error: null,
-  previewImage:
-    "https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9",
+  previewImage: userInfo?.image,
   step: 1,
 };
 
@@ -33,7 +32,7 @@ const authSlice = createSlice({
     loginSuccess: (state, action) => {
       state.isLoading = false;
       state.isAuthenticated = true;
-      state.user = action.payload.user;
+      state.user = action.payload;
       state.token = action.payload.token;
       state.error = null;
     },
@@ -41,7 +40,13 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.isAuthenticated = true;
       state.step = 1;
-      state.user = action.payload.user;
+      state.user = action.payload;
+      state.token = action.payload.token;
+      state.error = null;
+    },
+    editProfileSuccess: (state, action) => {
+      state.isLoading = false;
+      state.user = action.payload;
       state.token = action.payload.token;
       state.error = null;
     },
@@ -69,6 +74,7 @@ export const {
   singupSuccess,
   logoutSuccess,
   setPreviewImage,
+  editProfileSuccess,
   nextStep,
 } = authSlice.actions;
 

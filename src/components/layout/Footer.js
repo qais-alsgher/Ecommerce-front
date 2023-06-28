@@ -11,11 +11,10 @@ import {
 } from "@chakra-ui/react";
 import {
   FaInstagram,
-  FaTwitter,
   FaYoutube,
   FaLinkedinIn,
 } from "react-icons/fa";
-import logoBlack from "../../assets/logo/logoBlack.svg";
+import logoBlack from "../../assets/logo/logoBlack.png";
 import logoWhite from "../../assets/logo/logoWhite.png";
 import { Link } from "react-router-dom";
 

@@ -1,18 +1,13 @@
 import { React, useEffect, useState } from "react";
 import {
-  Box,
   Image,
-  Badge,
   Text,
   Flex,
   Button,
   Container,
-  useColorModeValue,
   useToast,
   useColorMode,
   Icon,
-  Tooltip,
-  VStack,
   Heading,
   Textarea,
 } from "@chakra-ui/react";
@@ -21,7 +16,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../store/features/authSlicer";
 import { addToCart } from "../store/actions/cartAction";
 import { addToWishList } from "../store/actions/wishListAction";
-import { Link } from "react-router-dom";
 import Rating from "../components/items/cardItem/Rating";
 import { getItemById } from "../store/actions/itemAction";
 import { selectOneItem } from "../store/features/itemSlicer";
@@ -45,9 +39,6 @@ function Item() {
   const { colorMode } = useColorMode();
   const toast = useToast();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
   const toastError = (title) => {
     toast({
       title: title,
@@ -109,16 +100,12 @@ function Item() {
         minH={`calc(100vh - 200px)`}
         flexDir={{ base: "column", md: "row" }}
         justifyContent="space-between"
-        // alignItems="center"
         gap={12}
         mt={10}
       >
-        <Flex
-          // bg="green"
-          flexBasis={{ base: "100%", md: "50%" }}
-        >
+        <Flex flexBasis={{ base: "100%", md: "50%" }}>
           <Flex
-            flexDir={{ base: "column", lg: "row" }}
+            flexDir={{ base: "column-reverse", lg: "row" }}
             overflow={"hidden"}
             gap={5}
           >

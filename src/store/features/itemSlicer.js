@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { startTransition } from "react";
 
 const initialState = {
   items: [],
@@ -7,6 +8,8 @@ const initialState = {
   error: null,
   itemError: null,
   topSellingItems: [],
+  previewImage: "",
+  updatePreviewImage: "",
   Page: 1,
   filterData: {
     category: "",
@@ -47,6 +50,7 @@ const itemSlicer = createSlice({
     addItemSuccess(state, action) {
       state.isLoading = false;
       state.items = [action.payload, ...state.items];
+      state.previewImage = "";
       state.error = null;
     },
     deleteItemSuccess(state, action) {
@@ -59,10 +63,21 @@ const itemSlicer = createSlice({
       state.items = state.items.map((item) =>
         item.id === action.payload.id ? action.payload : item
       );
+      state.updatePreviewImage = "";
       state.error = null;
     },
     updatePage(state, action) {
       state.Page = action.payload;
+    },
+    addPrviewImage(state, action) {
+      state.isLoading = false;
+      state.previewImage = action.payload;
+      state.error = null;
+    },
+    updatePrviewImage(state, action) {
+      state.isLoading = false;
+      state.updatePreviewImage = action.payload;
+      state.error = null;
     },
     addReviewSuccess(state, action) {
       state.isLoading = false;
@@ -83,6 +98,8 @@ export const {
   deleteItemSuccess,
   updateItemSuccess,
   updatePage,
+  addPrviewImage,
+  updatePrviewImage,
   addReviewSuccess,
 } = itemSlicer.actions;
 
@@ -93,6 +110,9 @@ export const selectItemError = (state) => state.item.itemError;
 export const selectIsLoading = (state) => state.item.isLoading;
 export const selectError = (state) => state.item.error;
 export const selectPage = (state) => state.item.Page;
+export const selectPreviewImage = (state) => state.item.previewImage;
+export const selectUpdatePreviewImage = (state) =>
+  state.item.updatePreviewImage;
 export const selectFilterData = (state) => state.item.filterData;
 
 export default itemSlicer.reducer;

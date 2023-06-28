@@ -11,6 +11,7 @@ import Cart from "./pages/Cart";
 import WishList from "./pages/WishList";
 import Profile from "./pages/Profile";
 import Success from "./pages/Success";
+import Admin from "./pages/Admin";
 import Layout from "./components/layout/Layout";
 import NotFoundPage from "./pages/NotFoundPage";
 import { Box } from "@chakra-ui/react";
@@ -22,10 +23,11 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/Home" element={<Home />} />
             <Route path="/profile/:tab" element={<Profile />} />
             <Route path="/profile/:id" element={<Profile />} />
-            <Route path="/Shop/:id" element={<Item />} />
             <Route path="/Shop/:category" element={<Items />} />
+            <Route path="/Shop/:id" element={<Item />} />
             <Route path="/Shop" element={<Items />} />
             <Route path="/About" element={<About />} />
             <Route path="/Contact" element={<ContactUs />} />
@@ -34,6 +36,8 @@ function App() {
             <Route path="/Success" element={<Success />} />
             <Route path="/login" element={<Login />} />
             <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/admin/:tab" element={<Admin />} />
+            <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>

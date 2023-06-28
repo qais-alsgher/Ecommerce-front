@@ -5,7 +5,6 @@ import Card from "./Card";
 import { Box, SimpleGrid, Grid, GridItem, Flex } from "@chakra-ui/react";
 function ItemsCards() {
   const items = useSelector(selectItems);
-  console.log("items", items);
 
   return (
     <>

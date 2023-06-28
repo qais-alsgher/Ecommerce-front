@@ -17,12 +17,15 @@ import {
 import SidebarContent from "./SidebarContent";
 import MobileNav from "./MobileNav";
 
-export default function Sidebar({ children }) {
+export default function Sidebar({ navLinks, urlRouter }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+ 
   return (
     <Box maxH="100vh" minW={80}>
       <SidebarContent
         onClose={() => onClose}
+        navLinks={navLinks}
+        urlRouter={urlRouter}
         display={{ base: "none", lg: "block" }}
       />
       <Drawer
@@ -35,13 +38,17 @@ export default function Sidebar({ children }) {
         size="full"
       >
         <DrawerContent>
-          <SidebarContent onClose={onClose} />
+          <SidebarContent
+            onClose={onClose}
+            navLinks={navLinks}
+            urlRouter={urlRouter}
+          />
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
       <MobileNav display={{ base: "flex", lg: "none" }} onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
-        {children}
+      <Box ml={{ base: 0, lg: 60 }} p="4">
+        {/* {children} */}
       </Box>
     </Box>
   );

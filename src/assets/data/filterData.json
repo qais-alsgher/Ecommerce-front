@@ -1,5 +1,7 @@
 {
    "category":["Pajamas","Sweatpants", "Jacket", "T-shirt","Sneakers",  "Other"],
-   "genders":["Male", "Female","Kids"] 
+   "genders":["Male", "Female","Kids"] ,
+   "size":["XS", "S", "M", "L", "XL"],
+   "colors":["Red", "Blue", "Green", "Yellow", "Black", "White", "Grey", "Pink", "Purple", "Orange", "Brown", "Other"]
 }
 

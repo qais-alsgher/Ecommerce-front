@@ -1,14 +1,12 @@
-import { React, useEffect, use } from "react";
+import { React, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Flex, Box, Text, Button, useColorMode } from "@chakra-ui/react";
-import { selectCartItems, selectQuintity } from "../store/features/cartSlicer";
+import { selectQuintity } from "../store/features/cartSlicer";
 import { payedSuccess } from "../store/actions/cartAction";
 import { selectUser } from "../store/features/authSlicer";
-import { getCartItems } from "../store/actions/cartAction";
 
 function Success() {
   const user = useSelector(selectUser);
-  const cartItems = useSelector(selectCartItems);
   const quintity = useSelector(selectQuintity);
   const dispatch = useDispatch();
   const { colorMode } = useColorMode();

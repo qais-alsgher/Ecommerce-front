@@ -4,6 +4,7 @@ import {
   loginSuccess,
   singupSuccess,
   logoutSuccess,
+  editProfileSuccess,
   setPreviewImage,
   nextStep,
 } from "../features/authSlicer";
@@ -13,6 +14,7 @@ import base64 from "base-64";
 let signupData = {
   image: null,
 };
+
 export const validateImage = (dispatch, e, toast) => {
   // validate image if it is png or jpeg and less than 1mb
   const image = e.target.files[0];
@@ -45,6 +47,7 @@ export const validateImage = (dispatch, e, toast) => {
 
 export const uploadImage = (dispatch) => {
   // upload image to cloudinary
+
   if (!signupData.image) return;
   const image = signupData.image;
 
@@ -54,8 +57,6 @@ export const uploadImage = (dispatch) => {
   axios
     .post("https://api.cloudinary.com/v1_1/dutml7fij/image/upload", formData)
     .then((res) => {
-      console.log(res);
-      // dispatch(setPreviewImage(res.data.secure_url));
       signupData = {
         ...signupData,
         image: res.data.secure_url,
@@ -90,7 +91,6 @@ export const signup = (dispatch, payload, step, toast) => {
       break;
 
     case 2:
-      console.log(payload.target?.phoneNumber?.value);
       signupData = {
         ...signupData,
         phoneNumber: payload.target?.phoneNumber.value,
@@ -112,7 +112,6 @@ export const signup = (dispatch, payload, step, toast) => {
       axios
         .post(`${process.env.REACT_APP_URL_KEY}/signup`, signupData)
         .then((res) => {
-          console.log(res);
           dispatch(singupSuccess(res.data));
           window.location.href = "/login";
           toast({
@@ -125,8 +124,6 @@ export const signup = (dispatch, payload, step, toast) => {
           });
         })
         .catch((err) => {
-          console.log(err.response);
-          console.log(err);
           dispatch(authFail(err));
           toast({
             title: "Signup Failed",
@@ -170,7 +167,6 @@ export const login = (dispatch, payload, toast) => {
         // take the url from .env file and add /login
         .post(`${process.env.REACT_APP_URL_KEY}/login`, {}, config)
         .then((res) => {
-          console.log(res);
           dispatch(loginSuccess(res.data));
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("userInfo", JSON.stringify(res.data));
@@ -213,11 +209,131 @@ export const login = (dispatch, payload, toast) => {
 export const logout = (dispatch) => {
   dispatch(authRequest());
   try {
-    console.log("logout");
     dispatch(logoutSuccess());
+    window.location.href = "/";
     localStorage.removeItem("token");
     localStorage.removeItem("userInfo");
   } catch (error) {
     dispatch(authFail(error));
+  }
+};
+
+export const editUserProfileInfo = (dispatch, payload, userData, toast) => {
+  payload.e?.preventDefault();
+  dispatch(authRequest());
+  try {
+    if (signupData.image) {
+      payload = {
+        ...payload,
+        image: signupData.image,
+      };
+    }
+    axios
+      .put(
+        `${process.env.REACT_APP_URL_KEY}/userProfile/${userData.id}`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${userData.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        dispatch(editProfileSuccess(res.data));
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("userInfo", JSON.stringify(res.data));
+        toast({
+          title: "Edit Profile Success",
+          description: "You are successfully edited your profile",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+      })
+      .catch((err) => {
+        dispatch(authFail(err));
+        toast({
+          title: "Edit Profile Failed",
+          description: `${err.response?.data}`,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
+  } catch (error) {
+    dispatch(authFail(error));
+
+    toast({
+      title: "Edit Profile Failed",
+      description: `${error.response?.data}`,
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    });
+  }
+};
+
+export const editUserAddress = (dispatch, payload, userData, toast) => {
+  payload?.preventDefault();
+  dispatch(authRequest());
+  try {
+    const addressData = `${
+      payload.target.country.value
+        ? payload.target.country.value
+        : userData.address.split("/")[0]
+    }/${
+      payload.target.city.value
+        ? payload.target.city.value
+        : userData.address.split("/")[1]
+    }/ ${
+      payload.target.street.value
+        ? payload.target.street.value
+        : userData.address.split("/")[2]
+    }/${
+      payload.target.zipCode.value
+        ? payload.target.zipCode.value
+        : userData.address.split("/")[3]
+    }`;
+    axios
+      .put(
+        `${process.env.REACT_APP_URL_KEY}/userProfile/${userData.id}`,
+        { address: addressData },
+        {
+          headers: {
+            Authorization: `Bearer ${userData.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        dispatch(editProfileSuccess(res.data));
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("userInfo", JSON.stringify(res.data));
+        toast({
+          title: "Edit Profile Success",
+          description: "You are successfully edited your profile",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+      })
+      .catch((err) => {
+        dispatch(authFail(err));
+        toast({
+          title: "Edit Profile Failed",
+          description: `${err.response?.data}`,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
+  } catch (error) {
+    dispatch(authFail(error));
+    toast({
+      title: "Edit Profile Failed",
+      description: `${error.response?.data}`,
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    });
   }
 };

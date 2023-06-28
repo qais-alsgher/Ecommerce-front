@@ -1,18 +1,15 @@
-import { React, useEffect } from "react";
+import { React } from "react";
 import {
   Stack,
   Text,
   Box,
   Stepper,
   Step,
-  StepLabel,
-  StepConnector,
   StepIcon,
   StepSeparator,
   StepStatus,
   StepIndicator,
 } from "@chakra-ui/react";
-// import { useSteps } from "@chakra-ui/react-steps";
 
 const steps = [
   { title: "First", description: "Contact Info" },

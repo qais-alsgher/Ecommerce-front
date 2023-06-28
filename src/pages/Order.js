@@ -7,31 +7,31 @@ import { selectOrder } from "../store/features/cartSlicer";
 import TableCom from "../components/cart/TableCom";
 import tableData from "../assets/data/tableData.json";
 import NoProducts from "../components/cart/NoProducts";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { RiBillFill } from "react-icons/ri";
 import TableBody from "../components/order/TableBody";
+import { getAllOrders } from "../store/actions/adminAction";
+import { selectAllOrders } from "../store/features/adminSlicer";
 
 function Order() {
   const user = useSelector(selectUser);
-  const order = useSelector(selectOrder);
-  const colorMode = useColorMode();
+  const orders = useSelector(selectAllOrders);
   const dispatch = useDispatch();
-  const toast = useToast();
 
   useEffect(() => {
-    getOrders(dispatch, user.id);
+    getAllOrders(dispatch);
   }, []);
 
   return (
     <>
-      {order.length > 0 ? (
+      {orders.length > 0 ? (
         <Container maxW="container.xl" py={10}>
           <TableCom tableHeadData={tableData?.order} title={"Orders"}>
-            <TableBody data={order} />
+            <TableBody data={orders} />
           </TableCom>
         </Container>
       ) : (
         <NoProducts text={"added to the Order"}>
-          <AiOutlineShoppingCart />
+          <RiBillFill />
         </NoProducts>
       )}
     </>

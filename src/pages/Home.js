@@ -1,9 +1,8 @@
 import { React, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Hero from "../components/home/Hero";
 import TopSellingCarousel from "../components/home/TopSellingCarousel";
 import Feature from "../components/home/Feature";
-import { Box, Container } from "@chakra-ui/react";
+import {  Container } from "@chakra-ui/react";
 import TitleSection from "../components/home/TitleSection";
 import Categories from "../components/home/Categories";
 import Partner from "../components/home/Partner";

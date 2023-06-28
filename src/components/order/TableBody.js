@@ -1,14 +1,17 @@
 import React from "react";
 import { Tbody, Tr, Box, Td, Flex, Text } from "@chakra-ui/react";
-import Procect from "../cart/Procect";
+import Product from "../cart/Product";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function TableBody({ data }) {
+  const { tab } = useParams();
+
   return (
     <Tbody>
       {data.map((item) => (
         <Tr key={item.id}>
-          {console.log(item)}
-          <Procect
+          <Product
             image={item.Item?.image[0]}
             title={item.Item?.title}
             id={item.id}
@@ -23,6 +26,21 @@ function TableBody({ data }) {
           </Td>
           <Td>{item.quantity}</Td>
           <Td>$ {item.Item?.price * item.quantity}</Td>
+          {tab === "All-Order" && (
+            <>
+              <Td>{item.User?.userName}</Td>
+              <Td>
+                <Link to={`mailto:${item.User?.email}`}>
+                  {item.User?.email}
+                </Link>
+              </Td>
+              <Td>
+                <Link to={`tel:${item.User?.phoneNumber}`}>
+                  {item.User?.phoneNumber}
+                </Link>
+              </Td>
+            </>
+          )}
         </Tr>
       ))}
     </Tbody>

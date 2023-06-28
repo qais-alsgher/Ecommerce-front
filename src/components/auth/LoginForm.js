@@ -6,7 +6,7 @@ import { login } from "../../store/actions/authAction";
 import { Link } from "react-router-dom";
 import SubmitBtn from "./SubmitBtn";
 import LogoW from "../../assets/logo/logoWhite.png";
-import LogoB from "../../assets/logo/logoBlack.svg";
+import LogoB from "../../assets/logo/logoBlack.png";
 import {
   Box,
   Flex,
@@ -20,8 +20,6 @@ import {
 export default function LoginForm() {
   const { colorMode } = useColorMode();
   const dispatch = useDispatch();
-  // const error = useSelector((state) => state.auth.error);
-  // const loading = useSelector((state) => state.auth.loading);
 
   const toast = useToast();
 
@@ -35,8 +33,12 @@ export default function LoginForm() {
       <Image
         src={colorMode === "light" ? LogoB : LogoW}
         alt={"logo"}
-        w={"300px"}
-        h={"230px"}
+        maxW={"200px"}
+        maxH={"150px"}
+        mb={{
+          base: "10",
+          md: "20",
+        }}
       />
 
       <form
@@ -71,11 +73,9 @@ export default function LoginForm() {
           </InputForm>
           <HStack w={"100%"} justify={"space-between"} alignItems={"center"}>
             <Checkbox
-              // change background color of checkbox
               colorScheme={
                 colorMode === "light" ? "lightBlue.300" : "darkBlue.100"
               }
-              // change color of checkmark
               iconColor={
                 colorMode === "light" ? "lightBlue.500" : "darkBlue.100"
               }

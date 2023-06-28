@@ -1,19 +1,7 @@
 import React from "react";
-import {
-  Tbody,
-  Tr,
-  Box,
-  Td,
-  Image,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  useToast,
-} from "@chakra-ui/react";
+import { Tbody, Tr, Td, useToast } from "@chakra-ui/react";
 import DleteBtn from "./DleteBtn";
-import Procect from "./Procect";
+import Procect from "./Product";
 import { deleteCartItem } from "../../store/actions/cartAction";
 import { useDispatch, useSelector } from "react-redux";
 import { addQuintityToCart } from "../../store/actions/cartAction";
@@ -32,7 +20,7 @@ function TableBody({ data }) {
           <Procect
             image={item.Item?.image[0]}
             title={item.Item?.title}
-            id={item.id}
+            id={item.Item?.id}
           />
           <Td>$ {item.Item?.price}</Td>
           <Td>
