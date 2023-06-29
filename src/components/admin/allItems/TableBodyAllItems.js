@@ -2,7 +2,7 @@ import React from "react";
 import { Tbody, Tr, Box, Td, useToast, Flex } from "@chakra-ui/react";
 import Procect from "../../cart/Product";
 import { useDispatch, useSelector } from "react-redux";
-import DleteBtn from "../../cart/DleteBtn";
+import DleteBtn from "../../cart/DeleteBtn";
 import { deleteItem } from "../../../store/actions/adminAction";
 import { selectToken } from "../../../store/features/authSlicer";
 import EditModal from "./EditModal";
@@ -27,8 +27,8 @@ function TableBodyAllItems({ data }) {
           </Td>
           <Td>{item.size?.map((size) => size + " / ")}</Td>
 
-          <Td>{item.pric}</Td>
           <Td>{item.clothesGender}</Td>
+          <Td>{item.price}</Td>
           <Td>
             <Flex alignItems="center" gap={2}>
               <EditModal item={item} />

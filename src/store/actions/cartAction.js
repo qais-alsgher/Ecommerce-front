@@ -10,22 +10,32 @@ import {
 } from "../features/cartSlicer";
 import axois from "axios";
 
-export const getCartItems = (dispatch, userId) => {
+export const getCartItems = (dispatch, user) => {
   dispatch(cartRequest());
   try {
-    axois.get(`${process.env.REACT_APP_URL_KEY}/cart/${userId}`).then((res) => {
-      dispatch(getUserCartSuccess(res.data));
-    });
+    axois
+      .get(`${process.env.REACT_APP_URL_KEY}/cart/${user.id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+      .then((res) => {
+        dispatch(getUserCartSuccess(res.data));
+      });
   } catch (error) {
     dispatch(cartFail(error.message));
   }
 };
 
-export const getOrders = (dispatch, userId) => {
+export const getOrders = (dispatch, user) => {
   dispatch(cartRequest());
   try {
     axois
-      .get(`${process.env.REACT_APP_URL_KEY}/cart/orders/${userId}`)
+      .get(`${process.env.REACT_APP_URL_KEY}/cart/${user.id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         dispatch(getUserOrderSuccess(res.data));
       });
@@ -34,18 +44,24 @@ export const getOrders = (dispatch, userId) => {
   }
 };
 
-export const addToCart = (dispatch, payload, toast) => {
+export const addToCart = (dispatch, payload, token, toast) => {
   dispatch(cartRequest());
   try {
-    axois.post(`${process.env.REACT_APP_URL_KEY}/cart`, payload).then((res) => {
-      dispatch(addToCartSuccess(res.data));
-      toast({
-        title: "Added to cart",
-        status: "success",
-        position: "top-right",
-        isClosable: true,
+    axois
+      .post(`${process.env.REACT_APP_URL_KEY}/cart`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        dispatch(addToCartSuccess(res.data));
+        toast({
+          title: "Added to cart",
+          status: "success",
+          position: "top-right",
+          isClosable: true,
+        });
       });
-    });
   } catch (error) {
     dispatch(cartFail(error.message));
     toast({
@@ -58,18 +74,24 @@ export const addToCart = (dispatch, payload, toast) => {
   }
 };
 
-export const deleteCartItem = (dispatach, id, toast) => {
+export const deleteCartItem = (dispatach, payload, toast) => {
   dispatach(cartRequest());
   try {
-    axois.delete(`${process.env.REACT_APP_URL_KEY}/cart/${id}`).then((res) => {
-      dispatach(deleteCartItemSuccess(id));
-      toast({
-        title: "Deleted",
-        status: "success",
-        position: "top-right",
-        isClosable: true,
+    axois
+      .delete(`${process.env.REACT_APP_URL_KEY}/cart/${payload.id}`, {
+        headers: {
+          Authorization: `Bearer ${payload.token}`,
+        },
+      })
+      .then((res) => {
+        dispatach(deleteCartItemSuccess(payload.id));
+        toast({
+          title: "Deleted",
+          status: "success",
+          position: "top-right",
+          isClosable: true,
+        });
       });
-    });
   } catch (error) {
     dispatach(cartFail(error.message));
     toast({
@@ -105,7 +127,11 @@ export const checkoutCart = (dispatch, payload, toast) => {
       });
     });
     axios
-      .post(`${process.env.REACT_APP_URL_KEY}/checkout`, lineItems)
+      .post(`${process.env.REACT_APP_URL_KEY}/checkout`, lineItems, {
+        headers: {
+          Authorization: `Bearer ${payload.token}`,
+        },
+      })
       .then((res) => {
         return res.data.url;
       })
@@ -127,13 +153,27 @@ export const checkoutCart = (dispatch, payload, toast) => {
 export const payedSuccess = (dispatch, payload) => {
   try {
     axios
-      .get(`${process.env.REACT_APP_URL_KEY}/cart/${payload.userId}`)
+      .get(`${process.env.REACT_APP_URL_KEY}/cart/${payload.userId}`, {
+        headers: {
+          Authorization: `Bearer ${payload.token}`,
+        },
+      })
       .then((res) => {
         res.data?.forEach((item) => {
-          axios.put(`${process.env.REACT_APP_URL_KEY}/cart/${item.id}`, {
-            status: "paid",
-            quantity: payload.quintity[item.id] ? payload.quintity[item.id] : 1,
-          });
+          axios.put(
+            `${process.env.REACT_APP_URL_KEY}/cart/${item.id}`,
+            {
+              status: "paid",
+              quantity: payload.quintity[item.id]
+                ? payload.quintity[item.id]
+                : 1,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${payload.token}`,
+              },
+            }
+          );
         });
       });
     localStorage.removeItem("quentity");

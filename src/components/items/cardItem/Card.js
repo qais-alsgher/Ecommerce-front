@@ -28,7 +28,7 @@ function Card({ item }) {
   const { colorMode } = useColorMode();
   const toast = useToast();
 
-  const checkLogin = () => {
+  const handleAddToCart = () => {
     if (!user) {
       toast({
         title: "You must login first",
@@ -38,27 +38,31 @@ function Card({ item }) {
       });
       return;
     }
-  };
-
-  const handleAddToCart = () => {
-    checkLogin();
     const data = {
       userId: user.id,
       itemId: item.id,
       quantity: 1,
-      color: item.color[0],
-      size: item.size[0],
+      color: item?.color[0],
+      size: item?.size[0],
     };
-    addToCart(dispatch, data, toast);
+    addToCart(dispatch, data, user?.token, toast);
   };
 
   const handleAddToWishlist = () => {
-    checkLogin();
+    if (!user) {
+      toast({
+        title: "You must login first",
+        status: "error",
+        position: "top-right",
+        isClosable: true,
+      });
+      return false;
+    }
     const data = {
       userId: user.id,
       itemId: item.id,
     };
-    addToWishList(dispatch, data, toast);
+    addToWishList(dispatch, data, user.token, toast);
   };
 
   const handleSHow = () => {
@@ -102,7 +106,7 @@ function Card({ item }) {
           shadow="lg"
           position="relative"
           onClick={() => {
-            Navigate(`/Shop/${item.id}`);
+            Navigate(`/Shop/item/${item.id}`);
           }}
         >
           <Image
@@ -126,7 +130,8 @@ function Card({ item }) {
                 fontWeight="semibold"
                 as="h4"
                 lineHeight="tight"
-                isTruncated
+                w="fit-content"
+                textAlign={"center"}
               >
                 {item.title}
               </Box>

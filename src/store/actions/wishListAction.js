@@ -11,7 +11,11 @@ export const getWishList = (dispatch, payload) => {
   dispatch(wishListRequest());
   try {
     axios
-      .get(`${process.env.REACT_APP_URL_KEY}/wishlist/${payload}`)
+      .get(`${process.env.REACT_APP_URL_KEY}/wishlist/${payload.id}`, {
+        headers: {
+          Authorization: `Bearer ${payload.token}`,
+        },
+      })
       .then((res) => {
         dispatch(wishListSuccess(res.data));
       });
@@ -20,11 +24,15 @@ export const getWishList = (dispatch, payload) => {
   }
 };
 
-export const addToWishList = (dispatch, payload, toast) => {
+export const addToWishList = (dispatch, payload, token, toast) => {
   dispatch(wishListRequest());
   try {
     axios
-      .post(`${process.env.REACT_APP_URL_KEY}/wishlist`, payload)
+      .post(`${process.env.REACT_APP_URL_KEY}/wishlist`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         dispatch(wishListAddSuccess(res.data));
         toast({
@@ -54,13 +62,17 @@ export const addToWishList = (dispatch, payload, toast) => {
   }
 };
 
-export const deleteWishListItem = (dispatch, id, toast) => {
+export const deleteWishListItem = (dispatch, payload, toast) => {
   dispatch(wishListRequest());
   try {
     axios
-      .delete(`${process.env.REACT_APP_URL_KEY}/wishlist/${id}`)
+      .delete(`${process.env.REACT_APP_URL_KEY}/wishlist/${payload.id}`, {
+        headers: {
+          Authorization: `Bearer ${payload.token}`,
+        },
+      })
       .then((res) => {
-        dispatch(wishListDeleteSuccess(id));
+        dispatch(wishListDeleteSuccess(payload.id));
         toast({
           title: "Deleted",
           status: "success",

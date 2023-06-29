@@ -16,7 +16,11 @@ function Success() {
       if (!user) {
         window.location.href = "/login";
       } else {
-        payedSuccess(dispatch, { quintity, userId: user.id });
+        payedSuccess(dispatch, {
+          quintity,
+          userId: user.id,
+          token: user.token,
+        });
       }
     } catch (error) {
       console.log(error);

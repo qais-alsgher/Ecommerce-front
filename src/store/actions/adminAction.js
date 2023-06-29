@@ -11,6 +11,7 @@ import {
   getAllOrdersSuccess,
   getAllItemsSuccess,
   deleteItemSuccess,
+  createReportSuccess,
 } from "../features/adminSlicer";
 import axios from "axios";
 
@@ -367,6 +368,53 @@ export const deleteItem = (dispatch, payload, toast) => {
         toast({
           title: "Success.",
           description: "Item deleted successfully.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "top",
+        });
+      })
+      .catch((err) => {
+        dispatch(adminFailure(err.message));
+        toast({
+          title: "Error.",
+          description: `${err.message}`,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "top",
+        });
+      });
+  } catch (err) {
+    dispatch(adminFailure(err.message));
+    toast({
+      title: "Error.",
+      description: `${err.message}`,
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+      position: "top",
+    });
+  }
+};
+
+// ACTION FOR REPORT USER
+
+export const createReport = (dispatch, payload, toast) => {
+  dispatch(adminRequest());
+  try {
+    axios
+      .post(`${process.env.REACT_APP_URL_KEY}/report`, payload.data, {
+        headers: {
+          Authorization: `Bearer ${payload.token}`,
+        },
+      })
+      .then((res) => {
+        // dispatch(createReportSuccess(res.data));
+        console.log(res.data);
+        toast({
+          title: "Success.",
+          description: "The User is reported successfully.",
           status: "success",
           duration: 5000,
           isClosable: true,

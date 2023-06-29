@@ -1,24 +1,27 @@
 import { React, useEffect } from "react";
-import { Container, Button, useToast, useColorMode } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { getOrders } from "../store/actions/cartAction";
 import { selectUser } from "../store/features/authSlicer";
-import { selectOrder } from "../store/features/cartSlicer";
+import { selectOrder, selectCartLoading } from "../store/features/cartSlicer";
 import TableCom from "../components/cart/TableCom";
 import tableData from "../assets/data/tableData.json";
 import NoProducts from "../components/cart/NoProducts";
 import { RiBillFill } from "react-icons/ri";
 import TableBody from "../components/order/TableBody";
-import { getAllOrders } from "../store/actions/adminAction";
-import { selectAllOrders } from "../store/features/adminSlicer";
+import TbSkeleton from "../components/skeleton/TbSkeleton";
 
 function Order() {
+  const orders = useSelector(selectOrder);
   const user = useSelector(selectUser);
-  const orders = useSelector(selectAllOrders);
+  const isLoading = useSelector(selectCartLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getAllOrders(dispatch);
+    if (!user) {
+      window.location.href = "/login";
+    }
+    getOrders(dispatch, user);
   }, []);
 
   return (
@@ -30,9 +33,15 @@ function Order() {
           </TableCom>
         </Container>
       ) : (
-        <NoProducts text={"added to the Order"}>
-          <RiBillFill />
-        </NoProducts>
+        <>
+          {isLoading ? (
+            <TbSkeleton />
+          ) : (
+            <NoProducts text={"Products added to the Order"}>
+              <RiBillFill />
+            </NoProducts>
+          )}
+        </>
       )}
     </>
   );

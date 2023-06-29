@@ -5,14 +5,19 @@ import { selectToken } from "../store/features/authSlicer";
 import TableCom from "../components/cart/TableCom";
 import tableData from "../assets/data/tableData.json";
 import NoProducts from "../components/cart/NoProducts";
-import { AiFillHeart } from "react-icons/ai";
+import { BsPersonSlash } from "react-icons/bs";
 import { getBlockUser } from "../store/actions/adminAction";
-import { selectBlockedUsers } from "../store/features/adminSlicer";
+import {
+  selectBlockedUsers,
+  selectAdminLoading,
+} from "../store/features/adminSlicer";
 import TableBodyBlockedUser from "../components/admin/blockedUser/TableBodyBlockedUser";
+import TbSkeleton from "../components/skeleton/TbSkeleton";
 
 function BlockedUsers() {
   const token = useSelector(selectToken);
   const blockedUsers = useSelector(selectBlockedUsers);
+  const isLoading = useSelector(selectAdminLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,13 +28,15 @@ function BlockedUsers() {
     <>
       {blockedUsers.length > 0 ? (
         <Container maxW="container.xl" py={10}>
-          <TableCom tableHeadData={tableData?.wishlist} title={"WishList"}>
+          <TableCom tableHeadData={tableData?.blackList} title={"Black List"}>
             <TableBodyBlockedUser data={blockedUsers} />
           </TableCom>
         </Container>
+      ) : isLoading ? (
+        <TbSkeleton />
       ) : (
-        <NoProducts text={"added to the wishlist"}>
-          <AiFillHeart />
+        <NoProducts text={"Users added to the black list"}>
+          <BsPersonSlash />
         </NoProducts>
       )}
     </>

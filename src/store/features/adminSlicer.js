@@ -116,6 +116,7 @@ export const {
   getAllOrdersSuccess,
   getAllItemsSuccess,
   deleteItemSuccess,
+  createReportSuccess,
 } = adminSlice.actions;
 
 export const selectAdminLoading = (state) => state.admin.isLoading;

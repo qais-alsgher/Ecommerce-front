@@ -2,7 +2,7 @@ import React from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { Icon } from "@chakra-ui/react";
 
-function DleteBtn({ handleDelete }) {
+function DeleteBtn({ handleDelete }) {
   return (
     <Icon
       as={AiFillDelete}
@@ -14,4 +14,4 @@ function DleteBtn({ handleDelete }) {
   );
 }
 
-export default DleteBtn;
+export default DeleteBtn;

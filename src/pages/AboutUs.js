@@ -10,13 +10,14 @@ import {
   useColorModeValue,
   Spacer,
   Avatar,
-  useColorMode,
   Container,
 } from "@chakra-ui/react";
 import { MdOutlineSecurity } from "react-icons/md";
 import { SiFreecodecamp } from "react-icons/si";
 import { MdFingerprint } from "react-icons/md";
 import BoxCard from "../components/about/BoxCard";
+import qais from "../assets/images/qais.jpg";
+import AboutBg from "../assets/images/AboutBg.jpg";
 
 const AboutUs = () => {
   return (
@@ -35,7 +36,7 @@ const AboutUs = () => {
             position="absolute"
             top="0"
             left="0"
-            bgImage="url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')"
+            bgImage={`url(${AboutBg})`}
             bgSize="cover"
             bgPosition="center center"
             filter="brightness(0.2)"
@@ -48,17 +49,17 @@ const AboutUs = () => {
             </Heading>
             <Text
               color="gray.200"
-              fontSize="md"
+              fontSize={["md", "lg", "xl"]}
               mixW="60%"
               textAlign="center"
               letterSpacing={1.2}
               lineHeight={1.8}
             >
-              eMazad is an online auction website that allows users to bid on
-              and sell a wide variety of products in a safe and secure
-              environment, it is easy to use and has a simple interface. It
-              hosts a huge number of auctions in real time and you can bid on
-              any item you want within a minutes.
+              Welcome to Esports, your ultimate destination for top-quality
+              sportswear. We offer a handpicked collection of trendy athletic
+              apparel, competitive prices, and exceptional service. Join our
+              community of active individuals and experience the perfect fusion
+              of fashion and performance. Shop now!
             </Text>
           </Box>
         </Flex>
@@ -124,12 +125,12 @@ const AboutUs = () => {
       </Box>
 
       <Spacer h={{ md: "10", lg: "400" }} />
-      <Container maxW="container.2xl">
+      <Container maxW="container.xl">
         <Flex
           direction="column"
           align="center"
           justify="center"
-          mt={{ base: "0", md: "10", lg: "20" }}
+          my={{ base: "0", md: "10", lg: "20" }}
         >
           <Heading
             fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
@@ -149,11 +150,12 @@ const AboutUs = () => {
             padding="10"
             gap={{ base: "5", md: "10", lg: "20" }}
           >
-            <Avatar
-              size="3xl"
-              name="Segun Adebayo"
-              src="https://avatars.githubusercontent.com/u/78353639?v=4"
-            />
+            <Box
+              maxH={{ base: "100%", md: "80%", lg: "60%" }}
+              maxW={{ base: "100%", md: "80%", lg: "60%" }}
+            >
+              <Avatar size="3xl" name="Qais Alsgher" src={qais} />
+            </Box>
 
             <Text
               fontSize={{ base: "md", md: "lg", lg: "xl" }}
@@ -161,6 +163,7 @@ const AboutUs = () => {
               fontWeight="semibold"
               textAlign="center"
               maxW={{ base: "100%", md: "80%", lg: "60%" }}
+              linneHeight={"1.5"}
             >
               I'am a Full Stack Web Developer, I trained at Aspire Academy as a
               Full Stack JavaScript Developer, traind at ASAC as a Full Stack

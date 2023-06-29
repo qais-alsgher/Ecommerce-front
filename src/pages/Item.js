@@ -52,15 +52,16 @@ function Item() {
     setRating(index);
   };
 
-  const checkLogin = () => {
-    if (!user) {
-      toastError("You must login first");
-      return;
-    }
-  };
-
   const handleAddToCart = () => {
-    checkLogin();
+    if (!user) {
+      toast({
+        title: "You must login first",
+        status: "error",
+        position: "top-right",
+        isClosable: true,
+      });
+      return false;
+    }
     if (!color || !size) {
       toastError("You must select color and size");
       return;
@@ -72,21 +73,28 @@ function Item() {
       color: color,
       size: size,
     };
-    addToCart(dispatch, data, toast);
+    addToCart(dispatch, data, user.token, toast);
   };
 
   const handleAddToWishlist = () => {
-    checkLogin();
+    if (!user) {
+      toast({
+        title: "You must login first",
+        status: "error",
+        position: "top-right",
+        isClosable: true,
+      });
+      return false;
+    }
     const data = {
       userId: user.id,
       itemId: item.id,
     };
-    addToWishList(dispatch, data, toast);
+    addToWishList(dispatch, data, user.token, toast);
   };
 
   useEffect(() => {
     getItemById(dispatch, id);
-    // when item change set image to first image of item image
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -172,6 +180,8 @@ function Item() {
           </Flex>
         </Flex>
       </Flex>
+
+      {/* read reviews and create reviews */}
       <Flex flexDir="column" py={10} mb={10}>
         <Heading> Reviews</Heading>
         <Flex
@@ -181,7 +191,11 @@ function Item() {
           bg={colorMode === "light" ? "lightBlue.100" : "darkBlue.300"}
           borderRadius={10}
         >
-          <ReviewRead review={item?.Reviews} />
+          <ReviewRead
+            review={item?.Reviews}
+            handleClick={handleClick}
+            rating={rating}
+          />
 
           <form
             onSubmit={(e) => {
@@ -192,8 +206,9 @@ function Item() {
                   data: {
                     userId: user.id,
                     itemId: item.id,
-                    rating: rating,
+                    rating: rating ? rating : 0,
                   },
+                  token: user.token,
                 },
                 toast
               );

@@ -1,5 +1,5 @@
 import { React, useEffect } from "react";
-import FilterSlider from "../components/items/filterItems/FilterSlider";
+import FilterSidebar from "../components/items/filterItems/FilterSidebar";
 import { useDispatch } from "react-redux";
 import { getItems } from "../store/actions/itemAction";
 import ItemsCards from "../components/items/cardItem/ItemsCards";
@@ -19,9 +19,9 @@ function Items() {
 
   return (
     <>
-      <FilterSlider>
+      <FilterSidebar>
         <ItemsCards />
-      </FilterSlider>
+      </FilterSidebar>
     </>
   );
 }

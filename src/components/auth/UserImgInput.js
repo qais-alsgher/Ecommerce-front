@@ -16,7 +16,7 @@ export default function UserImgInput() {
   const toast = useToast();
 
   return (
-    <Flex justify="center" align="end">
+    <Flex justify="center" align="end" position={"relative"}>
       <Avatar
         size="2xl"
         src={previewImage}

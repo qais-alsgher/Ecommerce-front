@@ -13,6 +13,7 @@ import {
   FormControl,
   Textarea,
   Icon,
+  Spinner,
 } from "@chakra-ui/react";
 import { FcAddImage } from "react-icons/fc";
 import filterData from "../assets/data/filterData.json";
@@ -21,13 +22,17 @@ import { IoMdCloseCircleOutline } from "react-icons/io";
 import { AiFillCaretDown } from "react-icons/ai";
 import { validateItemImages, addItem } from "../store/actions/itemAction";
 import { useSelector, useDispatch } from "react-redux";
-import { selectPreviewImage } from "../store/features/itemSlicer";
+import {
+  selectPreviewImage,
+  selectIsLoading,
+} from "../store/features/itemSlicer";
 import { selectUser } from "../store/features/authSlicer";
 
 function AddItems() {
   const toast = useToast();
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const isLoading = useSelector(selectIsLoading);
   const previewImage = useSelector(selectPreviewImage);
 
   const option = (data) => {
@@ -236,8 +241,8 @@ function AddItems() {
           fontSize={"lg"}
         />
         <HStack flexDir={"row-reverse"}>
-          <Button type="submit" size="lg" mt={"-10px"}>
-            Submit
+          <Button type="submit" size="lg" mt={"-10px"} disabled={isLoading}>
+            {isLoading ? <Spinner size="md" /> : "Submit"}
           </Button>
         </HStack>
       </form>

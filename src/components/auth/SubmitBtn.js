@@ -13,7 +13,7 @@ export default function SubmitBtn({ children }) {
           {children}
         </Button>
       ) : (
-        <Button type="submit" mt={2} variant={"submitBtn"} isLoading>
+        <Button type="submit" mt={2} variant={"submitBtn"} isDisabled={loading}>
           <Spinner size="md" />
         </Button>
       )}

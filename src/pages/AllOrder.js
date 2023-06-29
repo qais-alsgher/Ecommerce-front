@@ -8,11 +8,16 @@ import NoProducts from "../components/cart/NoProducts";
 import { RiBillFill } from "react-icons/ri";
 import TableBody from "../components/order/TableBody";
 import { getAllOrders } from "../store/actions/adminAction";
-import { selectAllOrders } from "../store/features/adminSlicer";
+import {
+  selectAllOrders,
+  selectAdminLoading,
+} from "../store/features/adminSlicer";
+import TbSkeleton from "../components/skeleton/TbSkeleton";
 
 function AllOrder() {
   const token = useSelector(selectToken);
   const order = useSelector(selectAllOrders);
+  const isLoading = useSelector(selectAdminLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,14 +28,20 @@ function AllOrder() {
     <>
       {order.length > 0 ? (
         <Container maxW="container.xl" py={10}>
-          <TableCom tableHeadData={tableData?.order} title={"All Order"}>
+          <TableCom tableHeadData={tableData?.allOrders} title={"All Order"}>
             <TableBody data={order} />
           </TableCom>
         </Container>
       ) : (
-        <NoProducts text={"added to the Order"}>
-          <RiBillFill />
-        </NoProducts>
+        <>
+          {isLoading ? (
+            <TbSkeleton />
+          ) : (
+            <NoProducts text={"Products added to the Order"}>
+              <RiBillFill />
+            </NoProducts>
+          )}
+        </>
       )}
     </>
   );

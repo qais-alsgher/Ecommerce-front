@@ -84,6 +84,20 @@ const itemSlicer = createSlice({
       state.item.Reviews = [action.payload, ...state.item.Reviews];
       state.error = null;
     },
+    updateReviewSuccess(state, action) {
+      state.isLoading = false;
+      state.item.Reviews = state.item.Reviews.map((review) =>
+        review.id === action.payload.id ? action.payload : review
+      );
+      state.error = null;
+    },
+    deleteReviewSuccess(state, action) {
+      state.isLoading = false;
+      state.item.Reviews = state.item.Reviews.filter(
+        (review) => review.id !== action.payload
+      );
+      state.error = null;
+    },
   },
 });
 
@@ -101,6 +115,8 @@ export const {
   addPrviewImage,
   updatePrviewImage,
   addReviewSuccess,
+  updateReviewSuccess,
+  deleteReviewSuccess,
 } = itemSlicer.actions;
 
 export const selectItems = (state) => state.item.items;

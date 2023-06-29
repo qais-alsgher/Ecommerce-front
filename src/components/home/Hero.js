@@ -34,8 +34,8 @@ export default function WithBackgroundImage() {
             textAlign={"center"}
             fontSize={useBreakpointValue({ base: "3xl", md: "4xl" })}
           >
-            Lorem ipsum dolor sit amet consectetur adipiscing elit sed do
-            eiusmod tempor
+            Unleash your athletic potential. Shop now for top-quality
+            sportswear.
           </Text>
           <Stack
             direction={"column"}
@@ -63,7 +63,7 @@ export default function WithBackgroundImage() {
                 top={"-15px"}
                 transform={"rotate(10deg)"}
               >
-                Starting at $15/mo
+                Start New Life
               </Text>
             </Box>
           </Stack>

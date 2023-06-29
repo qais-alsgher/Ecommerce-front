@@ -5,13 +5,14 @@ import {
   getOneItemSuccess,
   topSellingItemsSuccess,
   addItemSuccess,
-  deleteItemSuccess,
   updateItemSuccess,
   getFilterData,
   updatePage,
   addPrviewImage,
   updatePrviewImage,
   addReviewSuccess,
+  updateReviewSuccess,
+  deleteReviewSuccess,
 } from "../features/itemSlicer";
 import axios from "axios";
 
@@ -19,7 +20,6 @@ const urlFatch = (dispatch, payload) => {
   try {
     let url = `${process.env.REACT_APP_URL_KEY}/items/${payload.price}?page=${payload.page}&limit=12`;
     if (payload.category && payload.gender) {
-      // http://localhost:8181/items/Pants/Female/200?page=1&limit=15
       url = `${process.env.REACT_APP_URL_KEY}/items/${payload.category}/${payload.gender}/${payload.price}?page=${payload.page}&limit=12`;
     } else if (payload.category) {
       url = `${process.env.REACT_APP_URL_KEY}/items/${payload.category}/${payload.price}?page=${payload.page}&limit=12`;
@@ -68,48 +68,6 @@ export const getTopSellingItems = (dispatch) => {
     });
   } catch (error) {
     dispatch(itemFailure(error));
-  }
-};
-
-export const addReview = (dispatch, payload, toast) => {
-  payload.e?.preventDefault();
-  dispatch(itemRequest());
-  try {
-    const reviewMessage = payload.e.target?.review?.value;
-    const review = {
-      ...payload?.data,
-      reviewMessage,
-    };
-
-    axios
-      .post(`${process.env.REACT_APP_URL_KEY}/review`, review)
-      .then((res) => {
-        dispatch(addReviewSuccess(res.data));
-        toast({
-          title: "Review Added",
-          status: "success",
-          position: "top-right",
-          isClosable: true,
-        });
-      })
-      .catch((err) => {
-        toast({
-          title: "Error",
-          description: `${err.response.data}`,
-          status: "error",
-          position: "top-right",
-          isClosable: true,
-        });
-      });
-  } catch (error) {
-    dispatch(itemFailure(error));
-    toast({
-      title: "Error",
-      description: "Something went wrong",
-      status: "error",
-      position: "top-right",
-      isClosable: true,
-    });
   }
 };
 
@@ -193,6 +151,8 @@ export const addItem = (dispatch, payload, toast) => {
         ...payload.data,
         image: images,
       };
+      console.log(item);
+      console.log(payload.token);
       axios
         .post(`${process.env.REACT_APP_URL_KEY}/item`, item, {
           headers: {
@@ -305,6 +265,137 @@ export const updateItem = (dispatch, payload, toast) => {
       duration: 5000,
       isClosable: true,
       position: "top",
+    });
+  }
+};
+
+// action for review section
+export const addReview = (dispatch, payload, toast) => {
+  payload.e?.preventDefault();
+  dispatch(itemRequest());
+  try {
+    const reviewMessage = payload.e.target?.review?.value;
+    const review = {
+      ...payload?.data,
+      reviewMessage,
+    };
+    axios
+      .post(`${process.env.REACT_APP_URL_KEY}/review`, review, {
+        headers: {
+          Authorization: `Bearer ${payload.token}`,
+        },
+      })
+      .then((res) => {
+        dispatch(addReviewSuccess(res.data));
+        toast({
+          title: "Review Added",
+          status: "success",
+          position: "top-right",
+          isClosable: true,
+        });
+      })
+      .catch((err) => {
+        toast({
+          title: "Error",
+          description: `${err.response.data}`,
+          status: "error",
+          position: "top-right",
+          isClosable: true,
+        });
+      });
+  } catch (error) {
+    dispatch(itemFailure(error));
+    toast({
+      title: "Error",
+      description: "Something went wrong",
+      status: "error",
+      position: "top-right",
+      isClosable: true,
+    });
+  }
+};
+
+export const deleteReview = (dispatch, payload, toast) => {
+  dispatch(itemRequest());
+  try {
+    axios
+      .delete(`${process.env.REACT_APP_URL_KEY}/review/${payload.id}`, {
+        headers: {
+          Authorization: `Bearer ${payload.token}`,
+        },
+      })
+      .then((res) => {
+        dispatch(deleteReviewSuccess(payload.id));
+        toast({
+          title: "Review Deleted",
+          status: "success",
+          position: "top-right",
+          isClosable: true,
+        });
+      })
+      .catch((err) => {
+        toast({
+          title: "Error",
+          description: `${err.response.data}`,
+          status: "error",
+          position: "top-right",
+          isClosable: true,
+        });
+      });
+  } catch (error) {
+    dispatch(itemFailure(error));
+    toast({
+      title: "Error",
+      description: "Something went wrong",
+      status: "error",
+      position: "top-right",
+      isClosable: true,
+    });
+  }
+};
+
+export const updateReview = (dispatch, payload, toast) => {
+  try {
+    dispatch(itemRequest());
+    console.log(payload);
+    axios
+      .put(
+        `${process.env.REACT_APP_URL_KEY}/review/${payload.id}`,
+        payload.data,
+        {
+          headers: {
+            Authorization: `Bearer ${payload.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        dispatch(updateReviewSuccess(res.data));
+        console.log(res);
+        toast({
+          title: "Review Updated",
+          status: "success",
+          position: "top-right",
+          isClosable: true,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast({
+          title: "Error",
+          description: `${err.response.data}`,
+          status: "error",
+          position: "top-right",
+          isClosable: true,
+        });
+      });
+  } catch (error) {
+    dispatch(itemFailure(error));
+    toast({
+      title: "Error",
+      description: "Something went wrong",
+      status: "error",
+      position: "top-right",
+      isClosable: true,
     });
   }
 };

@@ -1,4 +1,4 @@
-import { React, useState} from "react";
+import { React, useState } from "react";
 import {
   Box,
   Text,
@@ -10,12 +10,13 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import filterData from "../../../assets/data/filterData";
-import PriceSlider from "./PriceSlider";
+import PriceSlider from "./PriceSidebar";
 import NavItem from "./NavItem";
 import SectionTitle from "./SectionTitle";
 import { getItems } from "../../../store/actions/itemAction";
 import { useDispatch } from "react-redux";
-function FilterSliderContent({ onClose, ...rest }) {
+
+function FilterSidebarContent({ onClose, ...rest }) {
   const [sliderValue, setSliderValue] = useState(1000);
   const [categoryValue, setCategoryValue] = useState("");
   const [genderValue, setGenderValue] = useState("");
@@ -89,4 +90,4 @@ function FilterSliderContent({ onClose, ...rest }) {
   );
 }
 
-export default FilterSliderContent;
+export default FilterSidebarContent;

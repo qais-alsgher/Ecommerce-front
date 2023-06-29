@@ -1,21 +1,19 @@
 import React from "react";
-import {
-  Box,
-  Flex,
-  VStack,
-  useColorMode,
-} from "@chakra-ui/react";
+import { Box, Flex, VStack, useColorMode } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
+import Jacket from "../../assets/images/cat/Jacket.jpg";
+import Pajamas from "../../assets/images/cat/Pajamas.jpg";
+import Tshirt from "../../assets/images/cat/T-shirt.jpg";
 
 const changeBackground = keyframes`
 0%, 25% {
-  background-image: url(https://thumbs.dreamstime.com/b/businessman-drawing-virtual-screen-pricing-concept-89392739.jpg);
+  background-image: url(${Jacket});
 }
 50%, 75% {
-  background-image: url(https://thumbs.dreamstime.com/b/dollars-inscription-fair-wooden-blocks-balance-value-pricing-money-debt-deal-reasonable-price-justified-risk-136520545.jpg);
+  background-image: url(${Pajamas});
 }
 80%, 100% {
-  background-image: url(https://thumbs.dreamstime.com/b/marketing-pricing-price-promotion-value-concept-76836315.jpg);
+  background-image: url(${Tshirt});
 }
 `;
 
