@@ -45,115 +45,149 @@ export const validateImage = (dispatch, e, toast) => {
   }
 };
 
-export const uploadImage = (dispatch) => {
-  // upload image to cloudinary
-
-  if (!signupData.image) return;
-  const image = signupData.image;
-
-  const formData = new FormData();
-  formData.append("file", image);
-  formData.append("upload_preset", "kdwjzh9s");
-  axios
-    .post("https://api.cloudinary.com/v1_1/dutml7fij/image/upload", formData)
-    .then((res) => {
-      signupData = {
-        ...signupData,
-        image: res.data.secure_url,
-      };
-    })
-    .catch((err) => {
-      dispatch(authFail(err));
-    });
-};
-
 export const signup = (dispatch, payload, step, toast) => {
   payload.preventDefault();
   dispatch(authRequest());
+  try {
+    // switch case for each step of signup
+    switch (step) {
+      case 1:
+        if (
+          payload.target.password.value !== payload.target.confirmPassword.value
+        ) {
+          dispatch(authFail("password not match"));
+        } else {
+          signupData = {
+            ...signupData,
+            userName: payload.target.username.value,
+            email: payload.target.email.value,
+            password: payload.target.password.value,
+          };
 
-  // switch case for each step of signup
-  switch (step) {
-    case 1:
-      if (
-        payload.target.password.value !== payload.target.confirmPassword.value
-      ) {
-        dispatch(authFail("password not match"));
-      } else {
+          dispatch(nextStep());
+        }
+        break;
+
+      case 2:
         signupData = {
           ...signupData,
-          userName: payload.target.username.value,
-          email: payload.target.email.value,
-          password: payload.target.password.value,
+          phoneNumber: payload.target?.phoneNumber.value,
+          mobileNumber: payload.target?.mobileNumber.value,
+          gender: payload.target.gender.value,
+          birthDate: payload.target.birthDate.value,
         };
 
+        // uploadImage(dispatch);
         dispatch(nextStep());
-      }
-      break;
+        break;
+      case 3:
+        const addressData = `${payload.target.country.value}/${payload.target.city.value}/ ${payload.target.street.value}/${payload.target.zipCode.value}`;
+        signupData = {
+          ...signupData,
+          address: addressData,
+        };
 
-    case 2:
-      signupData = {
-        ...signupData,
-        phoneNumber: payload.target?.phoneNumber.value,
-        mobileNumber: payload.target?.mobileNumber.value,
-        gender: payload.target.gender.value,
-        birthDate: payload.target.birthDate.value,
-      };
+        const uploadImage = () => {
+          if (!signupData.image) return;
+          const image = signupData.image;
+          const formData = new FormData();
+          formData.append("file", image);
+          formData.append("upload_preset", "kdwjzh9s");
+          return axios
+            .post(
+              "https://api.cloudinary.com/v1_1/dutml7fij/image/upload",
+              formData
+            )
 
-      uploadImage(dispatch);
-      dispatch(nextStep());
-      break;
-    case 3:
-      const addressData = `${payload.target.country.value}/${payload.target.city.value}/ ${payload.target.street.value}/${payload.target.zipCode.value}`;
-      signupData = {
-        ...signupData,
-        address: addressData,
-      };
+            .then((res) => {
+              return res.data.secure_url;
+            })
+            .catch((err) => {
+              toast({
+                title: "Error Uploading Images",
+                description: "Something went wrong",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+                position: "top",
+              });
+              throw err;
+            });
+        };
 
-      axios
-        .post(`${process.env.REACT_APP_URL_KEY}/signup`, signupData)
-        .then((res) => {
-          dispatch(singupSuccess(res.data));
-          window.location.href = "/login";
-          toast({
-            title: "Signup Success",
-            description:
-              "You are successfully signed up ,Please Verify Email and Login",
-            status: "success",
-            duration: 5000,
-            isClosable: true,
+        uploadImage()
+          .then((res) => {
+            signupData = {
+              ...signupData,
+              image: res,
+            };
+
+            axios
+              .post(`${process.env.REACT_APP_URL_KEY}/signup`, signupData)
+              .then((res) => {
+                dispatch(singupSuccess(res.data));
+                signupData = {};
+                toast({
+                  title: "Signup Success",
+                  description:
+                    "You are successfully signed up ,Please Verify Email and Login",
+                  status: "success",
+                  duration: 5000,
+                  isClosable: true,
+                });
+              })
+              .catch((err) => {
+                dispatch(authFail(err));
+                toast({
+                  title: "Signup Failed",
+                  description:
+                    `${err.response?.data}` ||
+                    "Please check your email and password and try again",
+                  status: "error",
+                  duration: 5000,
+                  isClosable: true,
+                });
+              });
+          })
+          .catch((err) => {
+            dispatch(authFail(err));
+            toast({
+              title: "Signup Failed",
+              description:
+                `${err.response?.data}` ||
+                "Please check your email and password and try again",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+            });
           });
-        })
-        .catch((err) => {
-          dispatch(authFail(err));
-          toast({
-            title: "Signup Failed",
-            description:
-              `${err.response?.data}` ||
-              "Please check your email and password and try again",
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-          });
-        });
 
-      break;
+        break;
 
-    default:
-      break;
+      default:
+        break;
+    }
+  } catch (err) {
+    dispatch(authFail(err));
+    toast({
+      title: "Signup Failed",
+      description: `${err.response?.data}`,
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    });
   }
 };
 
 export const login = (dispatch, payload, toast) => {
   payload.preventDefault();
   dispatch(authRequest());
-
   const data = {
     email: payload.target.email.value,
     password: payload.target.password.value,
   };
 
   const encodedData = base64.encode(`${data.email}:${data.password}`);
-
   try {
     if (payload.error) {
       dispatch(authFail(payload.error));
@@ -164,7 +198,6 @@ export const login = (dispatch, payload, toast) => {
         },
       };
       axios
-        // take the url from .env file and add /login
         .post(`${process.env.REACT_APP_URL_KEY}/login`, {}, config)
         .then((res) => {
           dispatch(loginSuccess(res.data));
@@ -210,67 +243,98 @@ export const logout = (dispatch) => {
   dispatch(authRequest());
   try {
     dispatch(logoutSuccess());
-    window.location.href = "/";
     localStorage.removeItem("token");
     localStorage.removeItem("userInfo");
+    window.location.href = "/";
   } catch (error) {
     dispatch(authFail(error));
   }
 };
 
 export const editUserProfileInfo = (dispatch, payload, userData, toast) => {
-  payload.e?.preventDefault();
   dispatch(authRequest());
-  try {
-    if (signupData.image) {
-      payload = {
-        ...payload,
-        image: signupData.image,
-      };
-    }
-    axios
-      .put(
-        `${process.env.REACT_APP_URL_KEY}/userProfile/${userData.id}`,
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${userData.token}`,
-          },
-        }
-      )
-      .then((res) => {
-        dispatch(editProfileSuccess(res.data));
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("userInfo", JSON.stringify(res.data));
-        toast({
-          title: "Edit Profile Success",
-          description: "You are successfully edited your profile",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
-      })
-      .catch((err) => {
-        dispatch(authFail(err));
-        toast({
-          title: "Edit Profile Failed",
-          description: `${err.response?.data}`,
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-      });
-  } catch (error) {
-    dispatch(authFail(error));
 
-    toast({
-      title: "Edit Profile Failed",
-      description: `${error.response?.data}`,
-      status: "error",
-      duration: 5000,
-      isClosable: true,
+  const uploadImage = () => {
+    return new Promise((resolve, reject) => {
+      if (!signupData.image) {
+        resolve(null);
+      } else {
+        const image = signupData.image;
+        const formData = new FormData();
+        formData.append("file", image);
+        formData.append("upload_preset", "kdwjzh9s");
+
+        axios
+          .post(
+            "https://api.cloudinary.com/v1_1/dutml7fij/image/upload",
+            formData
+          )
+          .then((res) => {
+            resolve(res.data.secure_url);
+          })
+          .catch((err) => {
+            toast({
+              title: "Error Uploading Images",
+              description: "Something went wrong",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+              position: "top",
+            });
+            reject(err);
+          });
+      }
     });
-  }
+  };
+
+  uploadImage()
+    .then((imageUrl) => {
+      const data = {
+        ...payload,
+        image: imageUrl || userData.image,
+      };
+      axios
+        .put(
+          `${process.env.REACT_APP_URL_KEY}/userProfile/${userData.id}`,
+          data,
+          {
+            headers: {
+              Authorization: `Bearer ${userData.token}`,
+            },
+          }
+        )
+        .then((res) => {
+          dispatch(editProfileSuccess(res.data));
+          signupData = {};
+          toast({
+            title: "Profile Updated",
+            description: "Your profile has been successfully updated",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
+        })
+        .catch((err) => {
+          dispatch(authFail(err));
+          toast({
+            title: "Profile Update Failed",
+            description: `${err.response?.data}`,
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+        });
+    })
+    .catch((err) => {
+      dispatch(authFail(err));
+      toast({
+        title: "Profile Update Failed",
+        description: `${err.response?.data}`,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    });
 };
 
 export const editUserAddress = (dispatch, payload, userData, toast) => {
@@ -335,5 +399,82 @@ export const editUserAddress = (dispatch, payload, userData, toast) => {
       duration: 5000,
       isClosable: true,
     });
+  }
+};
+
+export const verifyUser = (dispatch, payload, toast) => {
+  payload.e?.preventDefault();
+  try {
+    dispatch(authRequest());
+    const data = {
+      email: payload.e.target.email.value,
+      password: payload.e.target.password.value,
+    };
+
+    const encodedData = base64.encode(`${data.email}:${data.password}`);
+
+    if (payload.error) {
+      dispatch(authFail(payload.error));
+    } else {
+      const config = {
+        headers: {
+          Authorization: `Basic ${encodedData}`,
+        },
+      };
+
+      axios
+        .post(
+          `${process.env.REACT_APP_URL_KEY}/verification/${payload.id}`,
+          {},
+          config
+        )
+        .then((res) => {
+          dispatch(loginSuccess(res.data));
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("userInfo", JSON.stringify(res.data));
+          toast({
+            title: "Verification Success",
+            description: "You are successfully verified",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
+          window.location.href = "/";
+        })
+        .catch((err) => {
+          dispatch(authFail(err));
+          toast({
+            title: "Verification Failed",
+            description: `${err.response?.data}`,
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+        });
+    }
+  } catch (error) {
+    dispatch(authFail(error));
+    toast({
+      title: "Verification Failed",
+      description: `${error.response?.data}`,
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    });
+  }
+};
+
+export const canDo = (payload) => {
+  try {
+    if (
+      payload?.user?.id === payload?.userId ||
+      payload?.user?.role === "Admin"
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    return false;
   }
 };

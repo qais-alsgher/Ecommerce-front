@@ -10,16 +10,22 @@ import {
   useColorMode,
   Grid,
   useToast,
+  Spinner,
 } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUser } from "../store/features/authSlicer";
+import { selectUser, selectIsLoading } from "../store/features/authSlicer";
 import UserImgInput from "../components/auth/UserImgInput";
 import { BsPencilFill } from "react-icons/bs";
-import { editUserProfileInfo, uploadImage } from "../store/actions/authAction";
+import { editUserProfileInfo } from "../store/actions/authAction";
 import { editUserAddress } from "../store/actions/authAction";
+
+function submitBtn(isLoading) {
+  return isLoading ? <Spinner size="sm" /> : <Text fontWeight={800}>Save</Text>;
+}
 
 function Settinges() {
   const user = useSelector(selectUser);
+  const isLoading = useSelector(selectIsLoading);
   const [addressData, setAddressData] = useState([]);
   const [showEditInfo, setShowEditInfo] = useState(false);
   const [showEditAddress, setShowEditAddress] = useState(false);
@@ -34,24 +40,24 @@ function Settinges() {
 
   const handleSubmite = async (e) => {
     e.preventDefault();
-    uploadImage(dispatch);
-    let data = {
-      userName: e.target?.userName?.value
-        ? e.target?.userName?.value
-        : user?.userName,
-      email: e.target?.email?.value ? e.target?.email?.value : user?.email,
-      phoneNumber: e.target?.phoneNumber?.value
-        ? e.target?.phoneNumber?.value
-        : user?.phoneNumber,
-      birthDate: e.target?.birthDate?.value
-        ? e.target?.birthDate?.value
-        : user?.birthDate,
+
+    const userName = e.target.userName?.value || user?.userName;
+    const email = e.target.email?.value || user?.email;
+    const phoneNumber = e.target.phoneNumber?.value || user?.phoneNumber;
+    const birthDate = e.target.birthDate?.value || user?.birthDate;
+
+    const updatedData = {
+      userName,
+      email,
+      phoneNumber,
+      birthDate,
     };
-    await setTimeout(() => {
-      editUserProfileInfo(dispatch, data, user, toast);
-    }, 4000);
+
+    editUserProfileInfo(dispatch, updatedData, user, toast);
   };
 
+  // await setTimeout(() => {
+  // }, 4000);
   return (
     <Container maxW="container.xl" py={10}>
       <form
@@ -132,7 +138,11 @@ function Settinges() {
               user?.birthDate?.slice(0, 10)
             )}
           </Text>
-          {showEditInfo && <Button type="submit">Save</Button>}
+          {showEditInfo && (
+            <Button type="submit" isDisabled={isLoading}>
+              {submitBtn(isLoading)}
+            </Button>
+          )}
         </Grid>
       </form>
       <hr />
@@ -210,7 +220,11 @@ function Settinges() {
             )}
           </Text>
           <Text></Text>
-          {showEditAddress && <Button type="submit">Save</Button>}
+          {showEditAddress && (
+            <Button type="submit" isDisabled={isLoading}>
+              {submitBtn(isLoading)}
+            </Button>
+          )}
         </Grid>
       </form>
     </Container>

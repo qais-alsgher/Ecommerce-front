@@ -7,7 +7,7 @@ import {
   SliderTrack,
   SliderMark,
 } from "@chakra-ui/react";
-function PriceSlider({ sliderValue, setSliderValue }) {
+function PriceSidebar({ sliderValue, setSliderValue }) {
   // const [sliderValue, setSliderValue] = useState(1000);
 
   const labelStyles = {
@@ -54,4 +54,4 @@ function PriceSlider({ sliderValue, setSliderValue }) {
   );
 }
 
-export default PriceSlider;
+export default PriceSidebar;

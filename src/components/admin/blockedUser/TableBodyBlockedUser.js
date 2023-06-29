@@ -1,8 +1,9 @@
 import React from "react";
-import { Tbody, Tr, Td, useToast } from "@chakra-ui/react";
+import { Tbody, Tr, Td } from "@chakra-ui/react";
 import Product from "../../cart/Product";
 import { Link } from "react-router-dom";
 import ActiveUserBtn from "../allUsers/ActiveUserBtn";
+import ReportDrawer from "../allUsers/ReportDrawer";
 
 function TableBodyBlockedUser({ data }) {
   return (
@@ -17,6 +18,9 @@ function TableBodyBlockedUser({ data }) {
             <Link to={`tel:${user.phoneNumber}`}>{user.phoneNumber}</Link>
           </Td>
           <Td>{user.address}</Td>
+          <Td>
+            <ReportDrawer reports={user.Reports} />
+          </Td>
           <Td>
             <ActiveUserBtn id={user.id} />
           </Td>

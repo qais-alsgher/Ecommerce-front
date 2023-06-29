@@ -1,5 +1,5 @@
 import { React, useEffect } from "react";
-import { Container } from "@chakra-ui/react";
+import { Container, Box } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../store/features/authSlicer";
 import { selectWishList } from "../store/features/wishListSlicer";
@@ -19,22 +19,24 @@ function WishList() {
     if (!user) {
       window.location.href = "/login";
     }
-    getWishList(dispatch, user.id);
+    getWishList(dispatch, user);
   }, []);
 
   return (
     <>
-      {wishListItems.length > 0 ? (
-        <Container maxW="container.xl" py={10}>
-          <TableCom tableHeadData={tableData?.wishlist} title={"WishList"}>
-            <TableBodyWish data={wishListItems} />
-          </TableCom>
-        </Container>
-      ) : (
-        <NoProducts text={"added to the wishlist"}>
-          <AiFillHeart />
-        </NoProducts>
-      )}
+      <Box w={"full"} minH={"77vh"}>
+        {wishListItems.length > 0 ? (
+          <Container maxW="container.xl" py={10}>
+            <TableCom tableHeadData={tableData?.wishlist} title={"WishList"}>
+              <TableBodyWish data={wishListItems} />
+            </TableCom>
+          </Container>
+        ) : (
+          <NoProducts text={"Products added to the wishlist"}>
+            <AiFillHeart />
+          </NoProducts>
+        )}
+      </Box>
     </>
   );
 }

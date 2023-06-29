@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import MobileNav from "./MobileNav";
-import FilterSliderContent from "./FilterSliderContent";
+import FilterSidebarContent from "./FilterSidebarContent";
 import { Box, Drawer, DrawerContent, VStack } from "@chakra-ui/react";
 import SliderPage from "./SliderPage";
 
-export default function FilterSlider({ children }) {
+export default function FilterSidebar({ children }) {
   const [isOpen, setIsOpen] = useState(false);
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
@@ -12,7 +12,7 @@ export default function FilterSlider({ children }) {
   return (
     <Box display="flex" flexDirection={{ base: "column", md: "row" }}>
       <Box minW={80}>
-        <FilterSliderContent
+        <FilterSidebarContent
           onClose={onClose}
           display={{ base: "none", md: "block" }}
         />
@@ -25,7 +25,7 @@ export default function FilterSlider({ children }) {
           onOverlayClick={onClose}
         >
           <DrawerContent>
-            <FilterSliderContent onClose={onClose} />
+            <FilterSidebarContent onClose={onClose} />
           </DrawerContent>
         </Drawer>
         <MobileNav display={{ base: "flex", md: "none" }} onOpen={onOpen} />

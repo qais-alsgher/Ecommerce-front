@@ -1,5 +1,9 @@
 {
   "cart": ["Product", "Price", "Quantity", "Total",""],
   "order": ["Product", "Price", "size", "Color", "Quantity", "Total"],
-  "wishlist": ["Product", "Price", "size","","" ]
+  "wishlist": ["Product", "Price", "size","","" ],
+  "allProducts": ["Product","category",  "Color","size",  "clothes type", "Price",""],
+  "allUsers": ["Name", "Email", "Phone", "Address","Status","Reports", ""],
+  "allOrders": ["Prodect", "Price","size", "Color", "Quantity", "Total", "Name", "Email", "Phone","Address"],
+  "blackList": ["Name", "Email", "Phone", "Address" , "Reports", ""]
 }

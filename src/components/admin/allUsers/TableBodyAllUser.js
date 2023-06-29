@@ -1,10 +1,11 @@
 import React from "react";
-import { Tbody, Tr, Td } from "@chakra-ui/react";
+import { Tbody, Tr, Td, Button } from "@chakra-ui/react";
 import Procect from "../../cart/Product";
 
 import { Link } from "react-router-dom";
 import ActiveUserBtn from "./ActiveUserBtn";
 import AddToBlackListBtn from "./AddToBlackListBtn";
+import ReportDrawer from "./ReportDrawer";
 
 function TableBodyAllUser({ data }) {
   return (
@@ -21,6 +22,9 @@ function TableBodyAllUser({ data }) {
           </Td>
           <Td>{user.address}</Td>
           <Td>{user.status}</Td>
+          <Td>
+            <ReportDrawer reports={user.Reports} />
+          </Td>
           <Td>
             {user.status === "Active" ? (
               <AddToBlackListBtn id={user.id} />

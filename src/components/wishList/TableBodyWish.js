@@ -1,7 +1,7 @@
 import React from "react";
 import { Tbody, Tr, Td, Button, useToast } from "@chakra-ui/react";
 import Procect from "../cart/Product";
-import DleteBtn from "../cart/DleteBtn";
+import DleteBtn from "../cart/DeleteBtn";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/actions/cartAction";
@@ -40,9 +40,14 @@ function TableBodyWish({ data }) {
                     color: item.Item.color[0],
                     size: item.size[0],
                   },
+                  user.token,
                   toast
                 );
-                deleteWishListItem(dispatch, item.id, toast);
+                deleteWishListItem(
+                  dispatch,
+                  { id: item.id, token: user.token },
+                  toast
+                );
               }}
             >
               Add to cart
@@ -51,7 +56,11 @@ function TableBodyWish({ data }) {
           <Td>
             <DleteBtn
               handleDelete={() => {
-                deleteWishListItem(dispatch, item.id, toast);
+                deleteWishListItem(
+                  dispatch,
+                  { id: item.id, token: user.token },
+                  toast
+                );
               }}
             />
           </Td>

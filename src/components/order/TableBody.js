@@ -39,6 +39,7 @@ function TableBody({ data }) {
                   {item.User?.phoneNumber}
                 </Link>
               </Td>
+              <Td>{item.User?.address}</Td>
             </>
           )}
         </Tr>

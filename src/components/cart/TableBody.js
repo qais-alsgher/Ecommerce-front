@@ -1,15 +1,17 @@
 import React from "react";
 import { Tbody, Tr, Td, useToast } from "@chakra-ui/react";
-import DleteBtn from "./DleteBtn";
+import DleteBtn from "./DeleteBtn";
 import Procect from "./Product";
 import { deleteCartItem } from "../../store/actions/cartAction";
 import { useDispatch, useSelector } from "react-redux";
 import { addQuintityToCart } from "../../store/actions/cartAction";
 import { selectQuintity } from "../../store/features/cartSlicer";
 import InputCounter from "./InputCounter";
+import { selectToken } from "../../store/features/authSlicer";
 
 function TableBody({ data }) {
   const quintity = useSelector(selectQuintity);
+  const token = useSelector(selectToken);
   const dispatch = useDispatch();
   const toast = useToast();
 
@@ -42,7 +44,7 @@ function TableBody({ data }) {
           <Td>
             <DleteBtn
               handleDelete={() => {
-                deleteCartItem(dispatch, item.id, toast);
+                deleteCartItem(dispatch, { id: item.id, token }, toast);
               }}
             />
           </Td>

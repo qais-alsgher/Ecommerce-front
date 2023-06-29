@@ -2,7 +2,7 @@ import { React, useEffect } from "react";
 import Hero from "../components/home/Hero";
 import TopSellingCarousel from "../components/home/TopSellingCarousel";
 import Feature from "../components/home/Feature";
-import {  Container } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
 import TitleSection from "../components/home/TitleSection";
 import Categories from "../components/home/Categories";
 import Partner from "../components/home/Partner";
@@ -32,12 +32,12 @@ export default function Home() {
         <Categories />
       </Container>
 
-      <BgContainer>
+      <BgContainer py={16}>
         <TitleSection title="Featur" />
         <Feature />
       </BgContainer>
 
-      <Container maxW="container.xl">
+      <Container maxW="container.xl" py={16}>
         <TitleSection title="Our Partner" />
         <Partner />
       </Container>

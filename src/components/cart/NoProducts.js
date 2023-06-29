@@ -1,8 +1,10 @@
 import React from "react";
 import { Box, Text, Button, VStack } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function NoProducts({ children, text }) {
+  const location = useLocation();
+  const adminPath = location.pathname.split("/")[1];
   return (
     <VStack
       justify={"center"}
@@ -14,17 +16,19 @@ function NoProducts({ children, text }) {
     >
       <Box fontSize={["4xl", "5xl", "9xl"]}>{children}</Box>
       <Text fontSize={{ base: "1rem", md: "1.5rem" }} fontWeight="bold">
-        No Products {text}
+        No {text}
       </Text>
-      <Button
-        as={Link}
-        to="/Shop"
-        p={6}
-        fontSize={{ base: "1rem", md: "1.5rem" }}
-        variant={"solid"}
-      >
-        Go to Shop
-      </Button>
+      {adminPath !== "admin" && (
+        <Button
+          as={Link}
+          to="/Shop"
+          p={6}
+          fontSize={{ base: "1rem", md: "1.5rem" }}
+          variant={"solid"}
+        >
+          Go to Shop
+        </Button>
+      )}
     </VStack>
   );
 }
