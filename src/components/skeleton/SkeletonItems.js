@@ -10,7 +10,7 @@ import {
 
 function SkeletonItems() {
   return (
-    <Container maxW="container.xl" py={20}>
+    <Container maxW="container.lg" py={20}>
       <Grid
         w={"100%"}
         gap={10}

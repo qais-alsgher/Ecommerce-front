@@ -9,11 +9,7 @@ import {
   useColorMode,
   Image,
 } from "@chakra-ui/react";
-import {
-  FaInstagram,
-  FaYoutube,
-  FaLinkedinIn,
-} from "react-icons/fa";
+import { FaInstagram, FaYoutube, FaLinkedinIn } from "react-icons/fa";
 import logoBlack from "../../assets/logo/logoBlack.png";
 import logoWhite from "../../assets/logo/logoWhite.png";
 import { Link } from "react-router-dom";
@@ -45,7 +41,7 @@ export default function Footer() {
     <Box bg={colorMode === "light" ? "lightBlue.100" : "darkBlue.500"}>
       <Container
         as={Stack}
-        maxW={"6xl"}
+        maxW={"5xl"}
         py={4}
         direction={{ base: "column", md: "row" }}
         spacing={4}

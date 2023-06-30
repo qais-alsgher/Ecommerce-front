@@ -11,7 +11,7 @@ export default function FilterSidebar({ children }) {
 
   return (
     <Box display="flex" flexDirection={{ base: "column", md: "row" }}>
-      <Box minW={80}>
+      <Box minW={60}>
         <FilterSidebarContent
           onClose={onClose}
           display={{ base: "none", md: "block" }}

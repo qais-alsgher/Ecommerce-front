@@ -120,7 +120,7 @@ function EditModal({ item }) {
           {/* <ModalHeader>Modal Title</ModalHeader> */}
           <ModalCloseButton />
           <ModalBody>
-            <Container maxW="container.xl" pt={10}>
+            <Container maxW="container.lg" pt={10}>
               <form
                 onSubmit={(e) => {
                   handleSubmit(e);

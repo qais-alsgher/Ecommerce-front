@@ -19,7 +19,7 @@ import { BsGithub, BsDiscord } from "react-icons/bs";
 function ContactUs() {
   const { colorMode } = useColorMode();
   return (
-    <Container maxW="container.xl" mt={0} centerContent overflow="hidden">
+    <Container maxW="container.lg" mt={0} centerContent overflow="hidden">
       <Flex>
         <Box
           bg={colorMode === "light" ? "lightBlue.200" : "darkBlue.500"}

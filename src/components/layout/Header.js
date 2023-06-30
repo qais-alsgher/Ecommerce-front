@@ -56,7 +56,7 @@ export default function Header() {
         zIndex={100}
         boxShadow={"sm"}
       >
-        <Container maxW="container.xl">
+        <Container maxW="container.lg">
           <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
             <IconButton
               size={"md"}

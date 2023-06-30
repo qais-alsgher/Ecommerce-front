@@ -35,10 +35,7 @@ export default function LoginForm() {
         alt={"logo"}
         maxW={"200px"}
         maxH={"150px"}
-        mb={{
-          base: "10",
-          md: "20",
-        }}
+        my="10"
       />
 
       <form
@@ -50,7 +47,7 @@ export default function LoginForm() {
         }}
       >
         <Flex
-          gap={10}
+          gap={6}
           w={"100%"}
           justifyItems={"center"}
           alignItems={"center"}

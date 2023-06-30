@@ -19,7 +19,7 @@ import MobileNav from "./MobileNav";
 
 export default function Sidebar({ navLinks, urlRouter }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
- 
+
   return (
     <Box maxH="100vh" minW={80}>
       <SidebarContent

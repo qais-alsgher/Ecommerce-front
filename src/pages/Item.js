@@ -102,7 +102,7 @@ function Item() {
   }, [item]);
 
   return (
-    <Container maxW="container.xl">
+    <Container maxW="container.lg">
       <Flex
         py={10}
         minH={`calc(100vh - 200px)`}
@@ -133,14 +133,16 @@ function Item() {
                 );
               })}
             </Flex>
-            <Image w={{ base: "100%", lg: "80%" }} h="100%" src={image} />
+            <Image w={{ base: "100%", lg: "80%" }} src={image} />
           </Flex>
         </Flex>
         <Flex gap={5} flexBasis={{ base: "100%", md: "50%" }} flexDir="column">
           <Heading>{item?.title}</Heading>
           <Rating rating={item?.Reviews} justifyContent="flex-start" />
-          <Text fontSize="2xl">$ {item?.price}</Text>
-          <Text fontSize="xl">{item?.description}</Text>
+          <Text fontSize={[`xl`, `2xl`, `3xl`]} fontWeight="bold">
+            $ {item?.price}
+          </Text>
+          <Text fontSize={["md", "lg", "xl"]}>{item?.description}</Text>
           <Selecttor
             data={item?.color}
             isColor={true}
@@ -156,7 +158,7 @@ function Item() {
             handleClick={(value) => setSize(value)}
           />
           <Flex alignItems={"center"} gap={5}>
-            <Text fontSize="xl">Quantity :</Text>
+            <Text fontSize={["md", "lg", "xl"]}>Quantity :</Text>
             <InputCounter
               quantity={quantity}
               handleClick={(value) => setQuantity(value)}
@@ -215,10 +217,10 @@ function Item() {
             }}
           >
             <Flex flexDir="column" gap={5} pt={5}>
-              <Heading>Write a review</Heading>
+              <Heading fontSize={["xl", "2xl", "3xl"]}>Write a review</Heading>
               <Flex flexDir="column" gap={5}>
                 <Flex justifyContent="flex-start" alignItems="center" gap={5}>
-                  <Text fontSize="xl">Your rating</Text>
+                  <Text fontSize={["md", "lg", "xl"]}>Your rating</Text>
                   <StarRating handleClick={handleClick} rating={rating} />
                 </Flex>
                 <Textarea
@@ -228,7 +230,7 @@ function Item() {
                   resize="none"
                   h="200px"
                 />
-                <Button type="submit" colorScheme="green" size="lg">
+                <Button type="submit" colorScheme="green" size={["md", "lg"]}>
                   Submit
                 </Button>
               </Flex>

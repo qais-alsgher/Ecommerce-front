@@ -272,8 +272,17 @@ export const updateItem = (dispatch, payload, toast) => {
 // action for review section
 export const addReview = (dispatch, payload, toast) => {
   payload.e?.preventDefault();
-  dispatch(itemRequest());
   try {
+    if (!payload.tolen) {
+      return toast({
+        title: "Error",
+        description: "Please login to add review",
+        status: "error",
+        position: "top-right",
+        isClosable: true,
+      });
+    }
+    dispatch(itemRequest());
     const reviewMessage = payload.e.target?.review?.value;
     const review = {
       ...payload?.data,

@@ -5,7 +5,7 @@ function SectionTitle({ children }) {
   return (
     <>
       <hr />
-      <Heading as="h3" size="md" m={2}>
+      <Heading as="h6" size="md" m={2}>
         {children}
       </Heading>
     </>

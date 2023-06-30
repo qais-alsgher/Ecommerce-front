@@ -107,7 +107,7 @@ function AddItems() {
   };
 
   return (
-    <Container maxW="container.xl" pt={10}>
+    <Container maxW="container.lg" pt={10}>
       <form
         onSubmit={(e) => {
           handleSubmit(e);
@@ -241,7 +241,13 @@ function AddItems() {
           fontSize={"lg"}
         />
         <HStack flexDir={"row-reverse"}>
-          <Button type="submit" size="lg" mt={"-10px"} disabled={isLoading}>
+          <Button
+            type="submit"
+            size="lg"
+            mt={"-80px"}
+            w={"30%"}
+            disabled={isLoading}
+          >
             {isLoading ? <Spinner size="md" /> : "Submit"}
           </Button>
         </HStack>

@@ -125,7 +125,7 @@ const AboutUs = () => {
       </Box>
 
       <Spacer h={{ md: "10", lg: "400" }} />
-      <Container maxW="container.xl">
+      <Container maxW="container.lg">
         <Flex
           direction="column"
           align="center"

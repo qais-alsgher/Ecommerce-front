@@ -34,12 +34,12 @@ function FilterSidebarContent({ onClose, ...rest }) {
       {...rest}
       zIndex={999}
     >
-      <Flex h="20" alignItems="center" mx="4" justifyContent="space-between">
-        <Text fontSize="2xl" fontWeight="semibold">
+      <Flex alignItems="center" my="2" mx="4" justifyContent="space-between">
+        <Text fontSize="xl" fontWeight="semibold">
           Filter
         </Text>
         <Text
-          fontSize="2xl"
+          fontSize="xl"
           fontWeight="semibold"
           onClick={() => {
             setSliderValue(1000);
