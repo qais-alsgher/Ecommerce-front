@@ -27,7 +27,7 @@ export default function Home() {
         <TopSellingCarousel items={topSellingItems} />
       </BgContainer>
 
-      <Container maxW="container.xl">
+      <Container maxW="container.lg">
         <TitleSection title="Categories" />
         <Categories />
       </Container>
@@ -37,7 +37,7 @@ export default function Home() {
         <Feature />
       </BgContainer>
 
-      <Container maxW="container.xl" py={16}>
+      <Container maxW="container.lg" py={16}>
         <TitleSection title="Our Partner" />
         <Partner />
       </Container>

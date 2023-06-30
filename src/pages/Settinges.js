@@ -59,7 +59,7 @@ function Settinges() {
   // await setTimeout(() => {
   // }, 4000);
   return (
-    <Container maxW="container.xl" py={10}>
+    <Container maxW="container.lg" py={10}>
       <form
         onSubmit={(e) => {
           handleSubmite(e);

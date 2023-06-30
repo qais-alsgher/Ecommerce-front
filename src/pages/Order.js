@@ -27,7 +27,7 @@ function Order() {
   return (
     <>
       {orders.length > 0 ? (
-        <Container maxW="container.xl" py={10}>
+        <Container maxW="container.lg" py={10}>
           <TableCom tableHeadData={tableData?.order} title={"Orders"}>
             <TableBody data={orders} />
           </TableCom>

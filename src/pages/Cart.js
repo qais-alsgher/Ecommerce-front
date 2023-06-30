@@ -32,7 +32,7 @@ function Cart() {
     <>
       <Box w={"full"} minH={"77vh"}>
         {cartItems.length > 0 ? (
-          <Container maxW="container.xl" py={10}>
+          <Container maxW="container.lg" py={10}>
             <TableCom tableHeadData={tableData?.cart} title={"Cart"}>
               <TableBody data={cartItems} />
               <Button

@@ -20,17 +20,11 @@ function StatisticsBtn() {
   );
 
   return (
-    <Box maxW="7xl" mx={"auto"} pt={4} px={{ base: 2, sm: 12, md: 17 }}>
-      <chakra.h1
-        textAlign={"center"}
-        fontSize={"4xl"}
-        py={10}
-        fontWeight={"bold"}
-      >
+    <Box maxW="5xl" mx={"auto"} pt={2} px={{ base: 2, sm: 10, md: 17 }}>
+      <chakra.h1 textAlign={"center"} fontSize="3xl" py={5} fontWeight={"bold"}>
         Dashboard Statistics 📊
       </chakra.h1>
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
-        {/* itemsCount : 23 salesCount : 6 usersCount : */}
         <StatsCard
           title={"Users"}
           stat={usersCount}

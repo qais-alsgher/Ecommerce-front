@@ -27,7 +27,7 @@ function Dashboard() {
           gap={5}
           alignItems="center"
           justifyContent="center"
-          mt="10"
+          mt="5"
           w="100%"
           maxH={"100hv"}
         >

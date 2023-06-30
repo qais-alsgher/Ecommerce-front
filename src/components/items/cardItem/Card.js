@@ -113,7 +113,7 @@ function Card({ item }) {
             src={item.image[0]}
             alt={`Picture of ${item.title}`}
             roundedTop="lg"
-            w="400px"
+            w="300px"
             h={{ base: "300px", md: "320px" }}
           />
           <Box p="6">
@@ -126,14 +126,16 @@ function Card({ item }) {
 
             <VStack justifyContent="center" alignContent="center">
               <Box
-                fontSize="2xl"
+                fontSize="xl"
                 fontWeight="semibold"
                 as="h4"
                 lineHeight="tight"
                 w="fit-content"
                 textAlign={"center"}
               >
-                {item.title}
+                {item.title.length > 20
+                  ? item.title.slice(0, 20) + "..."
+                  : item.title}
               </Box>
 
               <Box fontSize="xl" color={useColorModeValue("gray.800", "white")}>

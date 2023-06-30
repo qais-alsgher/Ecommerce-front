@@ -5,7 +5,7 @@ function BgContainer({ children, ...rest }) {
   const { colorMode } = useColorMode();
   return (
     <Box bg={colorMode === "light" ? "lightBlue.100" : "darkBlue.500"}>
-      <Container maxW="container.xl" {...rest}>
+      <Container maxW="container.lg" {...rest}>
         {children}
       </Container>
     </Box>

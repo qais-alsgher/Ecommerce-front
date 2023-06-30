@@ -13,8 +13,9 @@ function StatsCard({ title, stat, icon, handleClick }) {
   const { colorMode } = useColorMode();
   return (
     <Stat
+      maxH={"150PX"}
       px={{ base: 2, md: 4 }}
-      py={"5"}
+      py={"10"}
       shadow={"xl"}
       border={"1px solid"}
       borderColor={useColorModeValue("gray.800", "gray.500")}

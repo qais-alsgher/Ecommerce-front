@@ -53,7 +53,7 @@ function Admin() {
       overflow={"auto"}
     >
       <Sidebar urlRouter={urlRouter} navLinks={LinkItems} />
-      <Box w={"full"} h={"90vh"}>
+      <Box fontSize={{ base: "sm", lg: "md" }} w="full" h={"90vh"}>
         {renderTab()}
       </Box>
     </Flex>

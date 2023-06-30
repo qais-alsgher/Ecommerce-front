@@ -10,7 +10,7 @@ import {
 
 function TbSkeleton() {
   return (
-    <Container maxW="container.xl" py={20}>
+    <Container maxW="container.lg" py={20}>
       <Stack
         spacing={5}
         border={"1px solid #e2e8f0"}
