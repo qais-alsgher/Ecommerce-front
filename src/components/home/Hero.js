@@ -10,6 +10,7 @@ import {
   createIcon,
 } from "@chakra-ui/react";
 import background from "../../assets/images/background3.jpg";
+import { Link } from "react-router-dom";
 
 export default function WithBackgroundImage() {
   return (
@@ -44,7 +45,9 @@ export default function WithBackgroundImage() {
             alignSelf={"center"}
             position={"relative"}
           >
-            <Button variant={"solid"}>Get Started</Button>
+            <Button variant={"solid"} as={Link} to="/Shop">
+              Get Started
+            </Button>
             <Box>
               <Icon
                 as={Arrow}

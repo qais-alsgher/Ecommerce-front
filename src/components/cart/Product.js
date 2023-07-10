@@ -6,7 +6,7 @@ function Product({ image, title, id }) {
   return (
     <>
       {id ? (
-        <Link to={`/Shop/${id}`}>
+        <Link to={`/Shop/item/${id}`}>
           <Td display="flex" alignItems="center" justify="center" gap={5}>
             <Image
               src={image}

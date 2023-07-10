@@ -27,7 +27,7 @@ function AllUsers() {
   return (
     <>
       {allUsers?.length > 0 ? (
-        <Container maxW="container.xl" py={10}>
+        <Container maxW="container.xl" py={10} mr={15}>
           <TableCom tableHeadData={tableData?.allUsers} title={"All Users"}>
             <TableBodyAllUser data={allUsers} />
           </TableCom>
